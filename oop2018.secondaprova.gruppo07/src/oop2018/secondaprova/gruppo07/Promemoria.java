@@ -5,10 +5,37 @@
  */
 package oop2018.secondaprova.gruppo07;
 
+
+import java.time.LocalDateTime;
+
 /**
  *
- * @author desio
+ * @author gruppo07
  */
 public class Promemoria {
+    private final String descrizione;
+    private final LocalDateTime data;
+
+    public Promemoria(String descrizione, LocalDateTime data) {
+        this.descrizione = descrizione;
+        this.data = data;
+    }
+
+    public String getdescrizione() {
+        return descrizione;
+    }
+
+    public LocalDateTime getdata() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return data + "-" + descrizione;
+    }
+
     
+ 
+    
+   
 }
