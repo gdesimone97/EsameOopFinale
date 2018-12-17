@@ -6,13 +6,14 @@
 package oop2018.secondaprova.gruppo07;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author gruppo07
  */
-public class Promemoria {
+public class Promemoria implements Comparable<Promemoria>, Serializable {
     private final String descrizione;
     private final LocalDateTime data;
 
@@ -33,6 +34,12 @@ public class Promemoria {
     public String toString() {
         return data + "-" + descrizione;
     }
+
+    @Override
+    public int compareTo(Promemoria o) {
+       return this.data.compareTo(o.data);
+    }
+
 
     
  
