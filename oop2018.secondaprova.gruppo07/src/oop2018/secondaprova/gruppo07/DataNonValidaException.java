@@ -6,7 +6,7 @@
 package oop2018.secondaprova.gruppo07;
 
 /**
- *
+ * 
  * @author gruppo07
  */
 public class DataNonValidaException extends Exception {
