@@ -37,7 +37,7 @@ public class ElencoPromemoria extends TreeSet<Promemoria> {
      * @throws DescrizineNonValidaException se la descrizione è una stringa
      * vuota
      */
-    public synchronized void inserisciPromemoria(String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws PromemoriaPresenteException, DataNonValidaException, DescrizineNonValidaException {
+    public synchronized void inserisciPromemoria(String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws PromemoriaPresenteException, DataNonValidaException, DescrizioneNonValidaException {
         Promemoria p;
         try {
             LocalDateTime data = LocalDateTime.of(anno, mese, giorno, ora, minuti);
