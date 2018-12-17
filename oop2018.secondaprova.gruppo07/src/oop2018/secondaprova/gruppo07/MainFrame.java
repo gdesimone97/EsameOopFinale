@@ -3,8 +3,6 @@ package oop2018.secondaprova.gruppo07;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -367,6 +365,8 @@ public class MainFrame extends javax.swing.JFrame {
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
+            modificaButton.setEnabled(false);
+            cancellaButton.setEnabled(false);
             aggiornaModello();
         } catch (DataNonValidaException ex) {
             campoOrario.setVisible(true);
@@ -395,6 +395,7 @@ public class MainFrame extends javax.swing.JFrame {
             aggiornaModello();
             resultArea.append("Promemoria rimosso correttamente" + '\n');
             cancellaButton.setEnabled(false);
+            modificaButton.setEnabled(false);
         } catch (PromemoriaNonEsistenteException ex) {
         }
     }//GEN-LAST:event_cancellaButtonActionPerformed
