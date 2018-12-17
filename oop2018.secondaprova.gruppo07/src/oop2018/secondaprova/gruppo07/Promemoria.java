@@ -21,11 +21,11 @@ public class Promemoria {
         this.data = data;
     }
 
-    public String getdescrizione() {
+    public String getDescrizione() {
         return descrizione;
     }
 
-    public LocalDateTime getdata() {
+    public LocalDateTime getData() {
         return data;
     }
 
