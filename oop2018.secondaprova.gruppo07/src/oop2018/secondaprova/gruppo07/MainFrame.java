@@ -1,11 +1,13 @@
 package oop2018.secondaprova.gruppo07;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author desio
@@ -17,6 +19,17 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+    }
+
+    private void initInserisciFrame() {
+        campoData.setVisible(false);
+        campoDescrizione.setVisible(false);
+        campoOrario.setVisible(false);
+        descrizioneText.setText("");
+        giornoSpinner.setValue(LocalDate.now().getDayOfMonth());
+        meseSpinner.setValue(LocalDate.now().getMonthValue());
+        annoSpinner.setValue(LocalDate.now().getYear());
+        orarioText.setText(LocalTime.now().toString());
     }
 
     /**
@@ -43,6 +56,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         descrizioneText = new javax.swing.JTextField();
         campoDescrizione = new javax.swing.JLabel();
+        confermaButton = new javax.swing.JButton();
+        annullaButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
@@ -89,6 +104,10 @@ public class MainFrame extends javax.swing.JFrame {
         campoDescrizione.setText("*Campo obbligatorio");
         campoDescrizione.setToolTipText("");
 
+        confermaButton.setText("Conferma");
+
+        annullaButton.setText("Annulla");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -120,7 +139,11 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(orarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(campoOrario)
                             .addComponent(jLabel7)
-                            .addComponent(campoDescrizione))
+                            .addComponent(campoDescrizione)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(confermaButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(annullaButton)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -148,7 +171,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(descrizioneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoDescrizione)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confermaButton)
+                    .addComponent(annullaButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
@@ -290,10 +317,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner annoSpinner;
+    private javax.swing.JButton annullaButton;
     private javax.swing.JLabel campoData;
     private javax.swing.JLabel campoDescrizione;
     private javax.swing.JLabel campoOrario;
     private javax.swing.JButton cancellaButton;
+    private javax.swing.JButton confermaButton;
     private javax.swing.JTextField descrizioneText;
     private javax.swing.JSpinner giornoSpinner;
     private javax.swing.JButton inserisciButton;
