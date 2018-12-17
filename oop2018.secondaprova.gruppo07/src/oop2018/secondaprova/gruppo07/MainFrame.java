@@ -3,6 +3,8 @@ package oop2018.secondaprova.gruppo07;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -19,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private ElencoPromemoria ep;
     private DefaultListModel dm = new DefaultListModel();
+    private boolean flag = false;
 
     /**
      * Creates new form MainFrame
@@ -326,6 +329,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void inserisciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciButtonActionPerformed
         setEnabled(false);
         initInserisciFrame();
+        flag = false;
         inserisciFrame.setVisible(true);
     }//GEN-LAST:event_inserisciButtonActionPerformed
 
@@ -336,7 +340,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annullaButtonActionPerformed
 
     private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
-
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
         int giorno, mese, anno, ora, minuti;
@@ -350,11 +353,20 @@ public class MainFrame extends javax.swing.JFrame {
         anno = (int) annoSpinner.getValue();
 
         try {
+            if (flag) {
+                ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
+            }
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
+            
+            
+            if (flag) {
+                resultArea.append("Promemoria modificato correttamente" + '\n');
+            } else {
+                resultArea.append("Promemoria aggiunto correttamente" + '\n');
+            }
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            resultArea.append("Promemoria aggiunto correttamente" + '\n');
             aggiornaModello();
         } catch (DataNonValidaException ex) {
             campoOrario.setVisible(true);
@@ -365,6 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
             campoDescrizione.setVisible(true);
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
+        } catch (PromemoriaNonEsistenteException ex) {
         }
     }//GEN-LAST:event_confermaButtonActionPerformed
 
@@ -381,11 +394,14 @@ public class MainFrame extends javax.swing.JFrame {
             ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
             aggiornaModello();
             resultArea.append("Promemoria rimosso correttamente" + '\n');
+            cancellaButton.setEnabled(false);
         } catch (PromemoriaNonEsistenteException ex) {
         }
     }//GEN-LAST:event_cancellaButtonActionPerformed
 
     private void modificaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificaButtonActionPerformed
+        campoDescrizione.setVisible(false);
+        campoOrario.setVisible(false);
         inserisciFrame.setVisible(true);
         this.setEnabled(false);
         Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
@@ -394,6 +410,7 @@ public class MainFrame extends javax.swing.JFrame {
         annoSpinner.setValue(p.getData().getYear());
         orarioText.setText(String.format("%d:%d", p.getData().getHour(), p.getData().getMinute()));
         descrizioneText.setText(p.getDescrizione());
+        flag = true;
     }//GEN-LAST:event_modificaButtonActionPerformed
 
     /**
