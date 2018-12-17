@@ -20,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        
+
     }
 
     private void initInserisciFrame() {
@@ -118,8 +118,18 @@ public class MainFrame extends javax.swing.JFrame {
         campoDescrizione.setToolTipText("");
 
         confermaButton.setText("Conferma");
+        confermaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confermaButtonActionPerformed(evt);
+            }
+        });
 
         annullaButton.setText("Annulla");
+        annullaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annullaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -302,6 +312,23 @@ public class MainFrame extends javax.swing.JFrame {
         initInserisciFrame();
         inserisciFrame.setVisible(true);
     }//GEN-LAST:event_inserisciButtonActionPerformed
+
+    private void annullaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaButtonActionPerformed
+        inserisciFrame.setVisible(false);
+        this.setVisible(true);
+        this.setEnabled(true);
+    }//GEN-LAST:event_annullaButtonActionPerformed
+
+    private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
+        campoData.setVisible(false);
+        campoDescrizione.setVisible(false);
+        campoOrario.setVisible(false);
+        int giorno, mese, anno;
+        giorno = (int) giornoSpinner.getValue();
+        mese = (int) meseSpinner.getValue();
+        anno = (int) annoSpinner.getValue();
+
+    }//GEN-LAST:event_confermaButtonActionPerformed
 
     /**
      * @param args the command line arguments
