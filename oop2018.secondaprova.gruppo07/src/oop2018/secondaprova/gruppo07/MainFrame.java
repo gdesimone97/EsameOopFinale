@@ -1,8 +1,9 @@
 package oop2018.secondaprova.gruppo07;
 
-import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,10 +16,13 @@ import java.time.LocalTime;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private ElencoPromemoria ep;
+
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
+        ep = new ElencoPromemoria();
         initComponents();
 
     }
@@ -26,7 +30,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initInserisciFrame() {
         inserisciFrame.setLocationRelativeTo(this);
         inserisciFrame.setSize(inserisciFrame.getPreferredSize());
-        campoData.setVisible(false);
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
         descrizioneText.setText("");
@@ -53,7 +56,6 @@ public class MainFrame extends javax.swing.JFrame {
         meseSpinner = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         annoSpinner = new javax.swing.JSpinner();
-        campoData = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         orarioText = new javax.swing.JFormattedTextField();
         campoOrario = new javax.swing.JLabel();
@@ -97,9 +99,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         annoSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
-        campoData.setForeground(new java.awt.Color(255, 0, 0));
-        campoData.setText("*Data inserita non valida");
-
         jLabel5.setText("Orario:");
 
         try {
@@ -109,7 +108,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         campoOrario.setForeground(new java.awt.Color(255, 0, 0));
-        campoOrario.setText("*Orario inserito non valido");
+        campoOrario.setText("*Data/ora non valida");
 
         jLabel7.setText("Descrizione:");
 
@@ -137,33 +136,33 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(descrizioneText)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(campoData)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(giornoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(meseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(annoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(orarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(campoOrario)
-                        .addComponent(jLabel7)
-                        .addComponent(campoDescrizione)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(confermaButton)
-                            .addGap(18, 18, 18)
-                            .addComponent(annullaButton))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(descrizioneText)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(giornoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(meseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(annoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoOrario)
+                            .addComponent(jLabel7)
+                            .addComponent(campoDescrizione)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(confermaButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(annullaButton)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -177,8 +176,6 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(meseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(annoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoData)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -191,11 +188,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(descrizioneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoDescrizione)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton)
                     .addComponent(annullaButton))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
@@ -320,14 +317,35 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annullaButtonActionPerformed
 
     private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
-        campoData.setVisible(false);
+
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
-        int giorno, mese, anno;
+        int giorno, mese, anno, ora, minuti;
+        Scanner sc = new Scanner(orarioText.getText());
+        sc.useDelimiter(":");
+        ora = sc.nextInt();
+        minuti = sc.nextInt();
+        //System.out.println("ora: " + ora + " minuti: " + minuti);
+        String descrizione = "";
         giorno = (int) giornoSpinner.getValue();
         mese = (int) meseSpinner.getValue();
         anno = (int) annoSpinner.getValue();
+        descrizione = descrizioneText.getText();
 
+        try {
+            ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
+            inserisciFrame.setVisible(false);
+            this.setEnabled(true);
+            
+        } catch (DataNonValidaException ex) {
+            campoOrario.setVisible(true);
+            if(descrizioneText.getText().equals(""))
+                campoDescrizione.setVisible(true);
+        } catch (DescrizioneNonValidaException ex) {
+            campoDescrizione.setVisible(true);
+        } catch (PromemoriaPresenteException ex) {
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
+        }
     }//GEN-LAST:event_confermaButtonActionPerformed
 
     /**
@@ -368,7 +386,6 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner annoSpinner;
     private javax.swing.JButton annullaButton;
-    private javax.swing.JLabel campoData;
     private javax.swing.JLabel campoDescrizione;
     private javax.swing.JLabel campoOrario;
     private javax.swing.JButton cancellaButton;
