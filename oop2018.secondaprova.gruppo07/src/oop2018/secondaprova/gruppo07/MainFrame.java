@@ -336,12 +336,14 @@ public class MainFrame extends javax.swing.JFrame {
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
-            resultArea.append("Promemoria aggiunto correttamente"+'\n');
+            this.setVisible(true);
+            resultArea.append("Promemoria aggiunto correttamente" + '\n');
             //AGGIORNA Lista
         } catch (DataNonValidaException ex) {
             campoOrario.setVisible(true);
-            if(descrizioneText.getText().equals(""))
+            if (descrizioneText.getText().equals("")) {
                 campoDescrizione.setVisible(true);
+            }
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione.setVisible(true);
         } catch (PromemoriaPresenteException ex) {
