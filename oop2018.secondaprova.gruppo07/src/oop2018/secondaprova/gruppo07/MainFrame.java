@@ -71,7 +71,7 @@ public class MainFrame extends javax.swing.JFrame {
         cancellaButton = new javax.swing.JButton();
         modificaButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resultArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -262,10 +262,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        resultArea.setEditable(false);
+        resultArea.setColumns(20);
+        resultArea.setRows(5);
+        jScrollPane1.setViewportView(resultArea);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -336,7 +336,8 @@ public class MainFrame extends javax.swing.JFrame {
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
-            
+            resultArea.append("Promemoria aggiunto correttamente"+'\n');
+            //AGGIORNA Lista
         } catch (DataNonValidaException ex) {
             campoOrario.setVisible(true);
             if(descrizioneText.getText().equals(""))
@@ -407,9 +408,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JSpinner meseSpinner;
     private javax.swing.JButton modificaButton;
     private javax.swing.JFormattedTextField orarioText;
+    private javax.swing.JTextArea resultArea;
     // End of variables declaration//GEN-END:variables
 }
