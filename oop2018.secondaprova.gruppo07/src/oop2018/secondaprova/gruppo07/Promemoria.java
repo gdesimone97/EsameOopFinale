@@ -60,7 +60,7 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
  */
     @Override
     public String toString() {
-        return data + "-" + descrizione;
+        return data.getDayOfMonth()+ "/" + data.getMonth() + "/"+ data.getYear() + " " + data.getHour() + ":" + data.getMinute() + " - " + descrizione;
     }
 /**
  * Sovrascrizione della compareTo fatta in modo da comparare due promemoria
