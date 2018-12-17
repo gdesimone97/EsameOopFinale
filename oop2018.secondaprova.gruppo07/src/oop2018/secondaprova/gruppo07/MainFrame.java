@@ -80,6 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
+        inserisciFrame.setPreferredSize(new java.awt.Dimension(400, 340));
         inserisciFrame.setResizable(false);
         inserisciFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -166,7 +167,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(confermaButton)
                         .addGap(18, 18, 18)
                         .addComponent(annullaButton)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +196,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton)
                     .addComponent(annullaButton))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
@@ -244,6 +245,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         modificaButton.setText("Modifica");
         modificaButton.setEnabled(false);
+        modificaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -374,11 +380,21 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
             aggiornaModello();
-            resultArea.append("Promemoria rimosso correttamente"+'\n');
+            resultArea.append("Promemoria rimosso correttamente" + '\n');
         } catch (PromemoriaNonEsistenteException ex) {
-
         }
     }//GEN-LAST:event_cancellaButtonActionPerformed
+
+    private void modificaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificaButtonActionPerformed
+        inserisciFrame.setVisible(true);
+        this.setEnabled(false);
+        Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
+        giornoSpinner.setValue(p.getData().getDayOfMonth());
+        meseSpinner.setValue(p.getData().getMonthValue());
+        annoSpinner.setValue(p.getData().getYear());
+        orarioText.setText(String.format("%d:%d", p.getData().getHour(), p.getData().getMinute()));
+        descrizioneText.setText(p.getDescrizione());
+    }//GEN-LAST:event_modificaButtonActionPerformed
 
     /**
      * @param args the command line arguments

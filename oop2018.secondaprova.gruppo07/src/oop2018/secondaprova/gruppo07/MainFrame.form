@@ -4,6 +4,9 @@
   <NonVisualComponents>
     <Container class="javax.swing.JFrame" name="inserisciFrame">
       <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[400, 340]"/>
+        </Property>
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -73,7 +76,7 @@
                               <Component id="annullaButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -107,7 +110,7 @@
                           <Component id="confermaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="annullaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace pref="88" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -362,6 +365,9 @@
             <Property name="text" type="java.lang.String" value="Modifica"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificaButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
