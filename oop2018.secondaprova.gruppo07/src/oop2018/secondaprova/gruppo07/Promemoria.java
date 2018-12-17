@@ -27,7 +27,7 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
  * @param data Rappresenta la data nella quale il nostro promemoria è stato creato
  * @throws DescrizineNonValidaException, DateTimeException.
  */
-    public Promemoria(String descrizione, LocalDateTime data) throws DateTimeException, DescrizineNonValidaException  {
+    public Promemoria(String descrizione, LocalDateTime data) throws DescrizineNonValidaException  {
         if(descrizione != "")
         {
             this.descrizione = descrizione;

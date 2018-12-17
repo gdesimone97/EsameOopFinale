@@ -6,12 +6,12 @@
 package oop2018.secondaprova.gruppo07;
 
 /**
- *
+ * 
  * @author gruppo07
  */
-public class PromemoriaNonEsistenteException extends Exception {
+public class DataNonValidaException extends Exception {
 
-    public PromemoriaNonEsistenteException() {
+    public DataNonValidaException() {
     }
     
 }

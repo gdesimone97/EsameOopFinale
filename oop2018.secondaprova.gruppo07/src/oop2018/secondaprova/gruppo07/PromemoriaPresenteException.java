@@ -7,7 +7,7 @@ package oop2018.secondaprova.gruppo07;
 
 /**
  *
- * @author alfon
+ * @author gruppo07
  */
 public class PromemoriaPresenteException extends Exception {
 
