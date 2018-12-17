@@ -1,5 +1,6 @@
 package oop2018.secondaprova.gruppo07;
 
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -19,9 +20,12 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        
     }
 
     private void initInserisciFrame() {
+        inserisciFrame.setLocationRelativeTo(this);
+        inserisciFrame.setSize(inserisciFrame.getPreferredSize());
         campoData.setVisible(false);
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
@@ -70,6 +74,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
+        inserisciFrame.setPreferredSize(new java.awt.Dimension(400, 340));
+        inserisciFrame.setResizable(false);
         inserisciFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 inserisciFrameWindowClosing(evt);
@@ -77,12 +83,19 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Inserimento"));
+        jPanel2.setPreferredSize(new java.awt.Dimension(390, 340));
 
         jLabel1.setText("Giorno:");
 
+        giornoSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
         jLabel2.setText("Mese:");
 
+        meseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
         jLabel3.setText("Anno:");
+
+        annoSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         campoData.setForeground(new java.awt.Color(255, 0, 0));
         campoData.setText("*Data inserita non valida");
@@ -114,37 +127,34 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(descrizioneText)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoData)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(giornoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(meseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(annoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(orarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(campoOrario)
-                            .addComponent(jLabel7)
-                            .addComponent(campoDescrizione)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(confermaButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(annullaButton)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(descrizioneText)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(campoData)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(giornoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(meseSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(annoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(orarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoOrario)
+                        .addComponent(jLabel7)
+                        .addComponent(campoDescrizione)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(confermaButton)
+                            .addGap(18, 18, 18)
+                            .addComponent(annullaButton))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,22 +181,22 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(descrizioneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoDescrizione)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton)
                     .addComponent(annullaButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
         inserisciFrame.getContentPane().setLayout(inserisciFrameLayout);
         inserisciFrameLayout.setHorizontalGroup(
             inserisciFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         inserisciFrameLayout.setVerticalGroup(
             inserisciFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -203,10 +213,17 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList2);
 
         inserisciButton.setText("Inserisci");
+        inserisciButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserisciButtonActionPerformed(evt);
+            }
+        });
 
         cancellaButton.setText("Cancella");
+        cancellaButton.setEnabled(false);
 
         modificaButton.setText("Modifica");
+        modificaButton.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,6 +296,12 @@ public class MainFrame extends javax.swing.JFrame {
     private void inserisciFrameWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_inserisciFrameWindowClosing
         setEnabled(true);
     }//GEN-LAST:event_inserisciFrameWindowClosing
+
+    private void inserisciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciButtonActionPerformed
+        setEnabled(false);
+        initInserisciFrame();
+        inserisciFrame.setVisible(true);
+    }//GEN-LAST:event_inserisciButtonActionPerformed
 
     /**
      * @param args the command line arguments
