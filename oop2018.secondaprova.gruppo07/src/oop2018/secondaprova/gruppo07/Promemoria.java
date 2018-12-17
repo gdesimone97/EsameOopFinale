@@ -7,6 +7,7 @@ package oop2018.secondaprova.gruppo07;
 
 
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -24,9 +25,17 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
  * Metodo costruttore di un promrmoria
  * @param descrizione Rappresenta la descrizione del nostro promemoria
  * @param data Rappresenta la data nella quale il nostro promemoria è stato creato
+ * @throws DescrizineNonValidaException, DateTimeException.
  */
-    public Promemoria(String descrizione, LocalDateTime data) {
-        this.descrizione = descrizione;
+    public Promemoria(String descrizione, LocalDateTime data) throws DateTimeException, DescrizineNonValidaException  {
+        if(descrizione != "")
+        {
+            this.descrizione = descrizione;
+        }
+        else
+        { 
+            throw new DescrizineNonValidaException();
+        }
         this.data = data;
     }
 /**
