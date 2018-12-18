@@ -98,6 +98,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     public synchronized void svuotaElenco() {
        
         elenco.entrySet().removeAll(elenco.entrySet());
+        this.notifyAll();
     }
 
     /**
