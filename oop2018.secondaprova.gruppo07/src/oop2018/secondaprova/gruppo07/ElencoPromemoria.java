@@ -121,8 +121,8 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     }
 
     /**
-     * Metodo thread safe che rimuove tutti i promemoria con data precedente alla data attuale.
-     * Ideata per pulire un elenco dopo un caricamento da file.
+     * Metodo thread safe che rimuove tutti i promemoria con data precedente alla data attuale.Ideata per pulire un elenco dopo un caricamento da file.
+     * @return il numero di elementi rimossi
      */
     public synchronized long rimuoviPromemoriaScaduti() {
         long count = 0;
