@@ -6,7 +6,7 @@
 package oop2018.secondaprova.gruppo07;
 
 /**
- *
+ * Eccezione per segnalare l'inserimento di una descrizione vuota
  * @author gruppo07
  */
 public class DescrizioneNonValidaException extends Exception{

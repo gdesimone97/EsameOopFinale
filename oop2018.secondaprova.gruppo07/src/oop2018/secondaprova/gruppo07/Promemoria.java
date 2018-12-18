@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package oop2018.secondaprova.gruppo07;
 
 import java.io.Serializable;
@@ -27,9 +23,8 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
      * Metodo costruttore di un promrmoria
      *
      * @param descrizione Rappresenta la descrizione del nostro promemoria
-     * @param data Rappresenta la data nella quale il nostro promemoria è stato
-     * creato
-     * @throws DescrizioneNonValidaException, DateTimeException.
+     * @param data Rappresenta la data nella quale il nostro promemoria è stato creato
+     * @throws DescrizioneNonValidaException se la descrizione è vuota
      */
     public Promemoria(String descrizione, LocalDateTime data) throws DescrizioneNonValidaException {
         if (descrizione.equals("")) {
@@ -41,7 +36,7 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
     }
 
     /**
-     *
+     * Metodo per ottenere la descrizione
      * @return Restituisce la descrizione del promemoria
      */
     public String getDescrizione() {
@@ -49,7 +44,7 @@ public class Promemoria implements Comparable<Promemoria>, Serializable {
     }
 
     /**
-     *
+     * Metodo per ottenere la data
      * @return Restituisce la data e l'ora di creazione del promemoria
      */
     public LocalDateTime getData() {

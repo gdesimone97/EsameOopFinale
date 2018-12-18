@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package oop2018.secondaprova.gruppo07;
 
 import java.io.*;
@@ -41,8 +37,6 @@ public class Salvataggio {
      * passato come parametro
      *
      * @param nomeFile è il nome del file da cui effettuare il caricamento
-
-     * @param elenco è l'elenco promemoria in cui caricare
      * @return restituisce true se il caricamento va a buon fine, false
      * altrimenti
      */

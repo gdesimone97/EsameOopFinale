@@ -6,7 +6,7 @@
 package oop2018.secondaprova.gruppo07;
 
 /**
- *
+ * Eccezione per segnalare la presenza (non voluta) di un promemoria in un elenco
  * @author gruppo07
  */
 public class PromemoriaPresenteException extends Exception {

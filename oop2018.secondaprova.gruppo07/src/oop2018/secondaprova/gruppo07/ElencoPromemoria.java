@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package oop2018.secondaprova.gruppo07;
 
 import java.io.*;
@@ -177,6 +173,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * @throws DataNonValidaException se la data passata non è valida
      * @throws DescrizioneNonValidaException se la descrizione è una stringa vuota
      * @throws PromemoriaNonEsistenteException se il promemoria passato non è presente
+     * @throws PromemoriaPresenteException se il nuovo promemoria è già presente
      */
     public synchronized void modificaPromemoria(Promemoria p, String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws DataNonValidaException, DescrizioneNonValidaException, PromemoriaNonEsistenteException, PromemoriaPresenteException {
         try {
@@ -185,9 +182,8 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
                 throw new DataNonValidaException();
             }
             Promemoria np = new Promemoria(descrizione, data);
-            if(elenco.containsKey(data)){
+            if(!elenco.get(data).equals(p))
                 throw new PromemoriaPresenteException();
-            }
             if (!elenco.remove(p.getData(), p)) {
                 throw new PromemoriaNonEsistenteException();
             }
