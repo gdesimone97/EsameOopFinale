@@ -20,7 +20,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private ElencoPromemoria ep;
     private DefaultListModel dm = new DefaultListModel();
-    private boolean flag = false;
     private final String nomeFile = "backup.dat";
 
     /**
@@ -30,19 +29,37 @@ public class MainFrame extends javax.swing.JFrame {
         ep = new ElencoPromemoria();
         initComponents();
         aggiornaModello();
+        resultLabel.setText("");
     }
 
     private void initInserisciFrame() {
         inserisciFrame.setLocationRelativeTo(this);
         inserisciFrame.setSize(inserisciFrame.getPreferredSize());
+        
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
+        
         descrizioneText.setText("");
         giornoSpinner.setValue(LocalDate.now().getDayOfMonth());
         meseSpinner.setValue(LocalDate.now().getMonthValue());
         annoSpinner.setValue(LocalDate.now().getYear());
         orarioText.setText(LocalTime.now().toString());
-        resultLabel.setText("");
+    }
+    
+    private void initModificaFrame() {
+        modificaFrame.setLocationRelativeTo(this);
+        modificaFrame.setSize(inserisciFrame.getPreferredSize());
+        
+        campoDescrizione1.setVisible(false);
+        campoOrario1.setVisible(false);
+        
+        Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
+        System.out.println(p);
+        giornoSpinner1.setValue(p.getData().getDayOfMonth());
+        meseSpinner1.setValue(p.getData().getMonthValue());
+        annoSpinner1.setValue(p.getData().getYear());
+        orarioText1.setText(String.format("%02d:%02d", p.getData().getHour(), p.getData().getMinute()));
+        descrizioneText1.setText(p.getDescrizione());
     }
 
     private void aggiornaModello() {
@@ -71,12 +88,29 @@ public class MainFrame extends javax.swing.JFrame {
         campoDescrizione = new javax.swing.JLabel();
         confermaButton = new javax.swing.JButton();
         annullaButton = new javax.swing.JButton();
+        modificaFrame = new javax.swing.JFrame();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        giornoSpinner1 = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        meseSpinner1 = new javax.swing.JSpinner();
+        jLabel8 = new javax.swing.JLabel();
+        annoSpinner1 = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        orarioText1 = new javax.swing.JFormattedTextField();
+        campoOrario1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        descrizioneText1 = new javax.swing.JTextField();
+        campoDescrizione1 = new javax.swing.JLabel();
+        confermaButton1 = new javax.swing.JButton();
+        annullaButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lista = new javax.swing.JList<>();
         inserisciButton = new javax.swing.JButton();
         cancellaButton = new javax.swing.JButton();
         modificaButton = new javax.swing.JButton();
+        rimuoviAllButton = new javax.swing.JButton();
         resultLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -213,6 +247,128 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Modifica"));
+        jPanel3.setPreferredSize(new java.awt.Dimension(390, 340));
+
+        jLabel4.setText("Giorno:");
+
+        giornoSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel6.setText("Mese:");
+
+        meseSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        jLabel8.setText("Anno:");
+
+        annoSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel9.setText("Orario:");
+
+        try {
+            orarioText1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        campoOrario1.setForeground(new java.awt.Color(255, 0, 0));
+        campoOrario1.setText("*Data/ora non valida");
+
+        jLabel10.setText("Descrizione:");
+
+        campoDescrizione1.setForeground(new java.awt.Color(255, 0, 0));
+        campoDescrizione1.setText("*Campo obbligatorio");
+        campoDescrizione1.setToolTipText("");
+
+        confermaButton1.setText("Conferma");
+        confermaButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confermaButton1ActionPerformed(evt);
+            }
+        });
+
+        annullaButton1.setText("Annulla");
+        annullaButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annullaButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(descrizioneText1)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(giornoSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(meseSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(annoSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoOrario1)
+                            .addComponent(jLabel10)
+                            .addComponent(campoDescrizione1)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orarioText1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(confermaButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(annullaButton1)))
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(giornoSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(meseSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(annoSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(orarioText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoOrario1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descrizioneText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDescrizione1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confermaButton1)
+                    .addComponent(annullaButton1))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout modificaFrameLayout = new javax.swing.GroupLayout(modificaFrame.getContentPane());
+        modificaFrame.getContentPane().setLayout(modificaFrameLayout);
+        modificaFrameLayout.setHorizontalGroup(
+            modificaFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        modificaFrameLayout.setVerticalGroup(
+            modificaFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, 300, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -254,6 +410,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        rimuoviAllButton.setText("Rimuovi tutto");
+        rimuoviAllButton.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,9 +422,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inserisciButton)
                     .addComponent(cancellaButton)
-                    .addComponent(modificaButton))
+                    .addComponent(modificaButton)
+                    .addComponent(rimuoviAllButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -280,11 +440,13 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(cancellaButton)
                         .addGap(18, 18, 18)
                         .addComponent(modificaButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(rimuoviAllButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        resultLabel.setText("jLabel4");
+        resultLabel.setText("Testo");
 
         jMenu1.setText("File");
 
@@ -316,7 +478,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(resultLabel)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -327,9 +489,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -343,7 +505,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void inserisciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciButtonActionPerformed
         setEnabled(false);
         initInserisciFrame();
-        flag = false;
         inserisciFrame.setVisible(true);
     }//GEN-LAST:event_inserisciButtonActionPerformed
 
@@ -368,16 +529,9 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             ora = sc.nextInt();
             minuti = sc.nextInt();
-            if (flag) {
-                ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
-            }
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
 
-            if (flag) {
-                resultLabel.setText("Promemoria modificato correttamente");
-            } else {
-                resultLabel.setText("Promemoria aggiunto correttamente");
-            }
+            resultLabel.setText("Promemoria aggiunto correttamente");
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
@@ -391,8 +545,6 @@ public class MainFrame extends javax.swing.JFrame {
             campoDescrizione.setVisible(true);
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
-        } catch (PromemoriaNonEsistenteException ex) {
-
         }
     }//GEN-LAST:event_confermaButtonActionPerformed
 
@@ -410,17 +562,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancellaButtonActionPerformed
 
     private void modificaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificaButtonActionPerformed
-        campoDescrizione.setVisible(false);
-        campoOrario.setVisible(false);
-        inserisciFrame.setVisible(true);
         this.setEnabled(false);
-        Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
-        giornoSpinner.setValue(p.getData().getDayOfMonth());
-        meseSpinner.setValue(p.getData().getMonthValue());
-        annoSpinner.setValue(p.getData().getYear());
-        orarioText.setText(String.format("%d:%d", p.getData().getHour(), p.getData().getMinute()));
-        descrizioneText.setText(p.getDescrizione());
-        flag = true;
+        initModificaFrame();
+        modificaFrame.setVisible(true);
     }//GEN-LAST:event_modificaButtonActionPerformed
 
     private void listaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaValueChanged
@@ -431,6 +575,11 @@ public class MainFrame extends javax.swing.JFrame {
             cancellaButton.setEnabled(false);
             modificaButton.setEnabled(false);
         }
+        
+        //DA RIVEDERE (PER ABILITARE RimuoviAllButton)
+        if(ep.isEmpty())
+            rimuoviAllButton.setEnabled(false);
+        else rimuoviAllButton.setEnabled(true);
     }//GEN-LAST:event_listaValueChanged
 
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
@@ -452,6 +601,49 @@ public class MainFrame extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito");
        }
     }//GEN-LAST:event_salvaButtonActionPerformed
+
+    private void confermaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButton1ActionPerformed
+        campoDescrizione1.setVisible(false);
+        campoOrario1.setVisible(false);
+        int giorno, mese, anno, ora = 0, minuti = 0;
+        Scanner sc = new Scanner(orarioText1.getText());
+        sc.useDelimiter(":");
+
+        String descrizione = descrizioneText1.getText();
+        giorno = (int) giornoSpinner1.getValue();
+        mese = (int) meseSpinner1.getValue();
+        anno = (int) annoSpinner1.getValue();
+
+        try {
+            ora = sc.nextInt();
+            minuti = sc.nextInt();
+            ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
+            ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
+            resultLabel.setText("Promemoria modificato correttamente");
+            
+            modificaFrame.setVisible(false);
+            this.setEnabled(true);
+            this.setVisible(true);
+            aggiornaModello();
+        } catch (DataNonValidaException | InputMismatchException ex) {
+            campoOrario1.setVisible(true);
+            if (descrizioneText1.getText().equals("")) {
+                campoDescrizione1.setVisible(true);
+            }
+        } catch (DescrizioneNonValidaException ex) {
+            campoDescrizione1.setVisible(true);
+        } catch (PromemoriaPresenteException ex) {
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
+        } catch (PromemoriaNonEsistenteException ex) {
+
+        }
+    }//GEN-LAST:event_confermaButton1ActionPerformed
+
+    private void annullaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaButton1ActionPerformed
+        modificaFrame.setVisible(false);
+        this.setVisible(true);
+        this.setEnabled(true);
+    }//GEN-LAST:event_annullaButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,35 +678,54 @@ public class MainFrame extends javax.swing.JFrame {
                 new MainFrame().setVisible(true);
             }
         });
+    
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner annoSpinner;
+    private javax.swing.JSpinner annoSpinner1;
     private javax.swing.JButton annullaButton;
+    private javax.swing.JButton annullaButton1;
     private javax.swing.JLabel campoDescrizione;
+    private javax.swing.JLabel campoDescrizione1;
     private javax.swing.JLabel campoOrario;
+    private javax.swing.JLabel campoOrario1;
     private javax.swing.JButton cancellaButton;
     private javax.swing.JMenuItem caricaButton;
     private javax.swing.JButton confermaButton;
+    private javax.swing.JButton confermaButton1;
     private javax.swing.JTextField descrizioneText;
+    private javax.swing.JTextField descrizioneText1;
     private javax.swing.JSpinner giornoSpinner;
+    private javax.swing.JSpinner giornoSpinner1;
     private javax.swing.JButton inserisciButton;
     private javax.swing.JFrame inserisciFrame;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> lista;
     private javax.swing.JSpinner meseSpinner;
+    private javax.swing.JSpinner meseSpinner1;
     private javax.swing.JButton modificaButton;
+    private javax.swing.JFrame modificaFrame;
     private javax.swing.JFormattedTextField orarioText;
+    private javax.swing.JFormattedTextField orarioText1;
     private javax.swing.JLabel resultLabel;
+    private javax.swing.JButton rimuoviAllButton;
     private javax.swing.JMenuItem salvaButton;
     // End of variables declaration//GEN-END:variables
 }
