@@ -7,26 +7,24 @@ package oop2018.secondaprova.gruppo07;
 
 import java.awt.EventQueue;
 import java.time.LocalDateTime;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  * La classe è un thread che si occupa di controllare se i promemoria sono
- * scaduti
+ * scaduti ad intervalli presettati.
  *
  * @author gruppo07
  */
 public class ControlloScadenza extends Thread {
 
     private ElencoPromemoria elenco;
-    private int secondi;
-    private JFrame frame;
+    private final int secondi;
+    private final JFrame frame;
 
     /**
      * Crea un thread ControllaScadenza
-     *
-     * @param ep Elenco su cui effettuare il controllo
+     * 
+     * @param elenco Elenco su cui effettuare il controllo
      * @param secondi Intervallo di tempo tra due controlli consecutivi
      * @param frame Frame rispetto al quale far comparire il messaggio di
      * notifica
