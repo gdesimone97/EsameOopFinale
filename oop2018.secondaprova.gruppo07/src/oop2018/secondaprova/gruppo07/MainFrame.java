@@ -711,8 +711,7 @@ public class MainFrame extends javax.swing.JFrame {
                 epOld.notifyAll();
             }
             threadSalvataggio.setElenco(ep);
-            JOptionPane.showMessageDialog(this, "File caricato con successo");
-
+            JOptionPane.showMessageDialog(this, "File caricato con successo","Caricamento completato",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/affermativeIcon.png"));
         } else {
             JOptionPane.showMessageDialog(this, "Errore nel caricamento del file","Errore",JOptionPane.WARNING_MESSAGE,setIcon("/icone/errorFileIcon.png"));
             ep = epOld;
@@ -756,8 +755,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione1.setVisible(true);
-        } catch (PromemoriaPresenteException ex) {
-            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario", "Attenzione", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/warning64.png")));
+        } catch (PromemoriaPresenteException ex) {  
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario","Attenzione",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/icone/warning64.png")));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto","Promemoria scaduto",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/timeIcon.png"));
             modificaFrame.setVisible(false);
