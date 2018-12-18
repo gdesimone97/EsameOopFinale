@@ -94,14 +94,10 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * Metodo thread safe per la rimozione di tutti gli elementi della
      * struttura.
      *
-     * @return true se la rimozione viene effettuata con successo, false in caso
-     * contrario
      */
-    public synchronized boolean svuotaElenco() {
-        this.forEach(x -> {
-            elenco.remove(x.getData());
-        });
-        return true;
+    public synchronized void svuotaElenco() {
+       
+        elenco.entrySet().removeAll(elenco.entrySet());
     }
 
     /**
