@@ -182,7 +182,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
                 throw new DataNonValidaException();
             }
             Promemoria np = new Promemoria(descrizione, data);
-            if(!elenco.get(data).equals(p))
+            if(elenco.containsKey(data) && !elenco.get(data).equals(p))
                 throw new PromemoriaPresenteException();
             if (!elenco.remove(p.getData(), p)) {
                 throw new PromemoriaNonEsistenteException();
