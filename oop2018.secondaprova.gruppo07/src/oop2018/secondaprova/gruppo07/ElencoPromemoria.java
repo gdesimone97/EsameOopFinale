@@ -178,13 +178,16 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * @throws DescrizioneNonValidaException se la descrizione è una stringa vuota
      * @throws PromemoriaNonEsistenteException se il promemoria passato non è presente
      */
-    public synchronized void modificaPromemoria(Promemoria p, String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws DataNonValidaException, DescrizioneNonValidaException, PromemoriaNonEsistenteException {
+    public synchronized void modificaPromemoria(Promemoria p, String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws DataNonValidaException, DescrizioneNonValidaException, PromemoriaNonEsistenteException, PromemoriaPresenteException {
         try {
             LocalDateTime data = LocalDateTime.of(anno, mese, giorno, ora, minuti);
             if (data.isBefore(LocalDateTime.now())) {
                 throw new DataNonValidaException();
             }
             Promemoria np = new Promemoria(descrizione, data);
+            if(elenco.containsKey(data)){
+                throw new PromemoriaPresenteException();
+            }
             if (!elenco.remove(p.getData(), p)) {
                 throw new PromemoriaNonEsistenteException();
             }

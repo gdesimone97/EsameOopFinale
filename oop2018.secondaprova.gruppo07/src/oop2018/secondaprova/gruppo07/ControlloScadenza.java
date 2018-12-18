@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class ControlloScadenza extends Thread {
 
-    private ElencoPromemoria ep;
+    private ElencoPromemoria elenco;
     private int secondi;
     private JFrame frame;
 /**
@@ -25,13 +25,19 @@ public class ControlloScadenza extends Thread {
  * @param secondi Intervallo di tempo tra due controlli consecutivi
  * @param frame Frame rispetto al quale far comparire il messaggio di notifica
  */
-    public ControlloScadenza(ElencoPromemoria ep, int secondi, JFrame frame) {
-        this.ep = ep;
+    public ControlloScadenza(ElencoPromemoria elenco, int secondi, JFrame frame) {
+        this.elenco = elenco;
         this.secondi = secondi;
         this.frame = frame;
     }
 
-    /**
+   
+    
+    public void setElenco(ElencoPromemoria elenco) {
+        this.elenco = elenco;
+    }
+
+     /**
      * Il thread esegue una sleep di un tempo pari a quello passatto come parametro al costruttore in secondi<br>
      * Controlla se sono scaduti promemoria ed eventualemente li elimina facendo comparire una finestra informativa
      */
@@ -43,11 +49,11 @@ public class ControlloScadenza extends Thread {
                 Thread.sleep(secondi * 1000);
             } catch (InterruptedException ex) {
             }
-            Promemoria p = ep.ricercaPromemoria(LocalDateTime.now());
+            Promemoria p = elenco.ricercaPromemoria(LocalDateTime.now());
             if (p != null) {
                 EventQueue.invokeLater(() -> JOptionPane.showMessageDialog(frame, p.toString()+"\nPromemoria cancellato"));
                 try {
-                    ep.rimuoviPromemoria(p);
+                    elenco.rimuoviPromemoria(p);
                 } catch (PromemoriaNonEsistenteException ex) {
                 }
             }

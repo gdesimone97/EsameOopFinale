@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
     private ElencoPromemoria ep;
     private DefaultListModel dm = new DefaultListModel();
     private final String nomeFile = "backup.dat";
-
+    private final ControlloScadenza threadSalvataggio;
     /**
      * Creates new form MainFrame
      */
@@ -35,7 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         aggiornaModello();
         resultLabel.setText("");
-        new ControlloScadenza(ep, 15, this).start();
+        threadSalvataggio = new ControlloScadenza(ep, 15, this);
+        threadSalvataggio.start();
         new Thread(() -> {
             while (true) {
                 synchronized (ep) {
@@ -704,6 +705,7 @@ public class MainFrame extends javax.swing.JFrame {
             synchronized (epOld) {
                 epOld.notifyAll();
             }
+            threadSalvataggio.setElenco(ep);
             JOptionPane.showMessageDialog(this, "File caricato con successo");
 
         } else {
@@ -749,6 +751,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione1.setVisible(true);
+        } catch (PromemoriaPresenteException ex) {
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario", "Attenzione", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/warning64.png")));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto");
             modificaFrame.setVisible(false);
