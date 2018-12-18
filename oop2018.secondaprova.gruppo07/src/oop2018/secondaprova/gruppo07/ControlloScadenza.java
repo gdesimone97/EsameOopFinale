@@ -40,10 +40,7 @@ public class ControlloScadenza extends Thread {
                     ep.rimuoviPromemoria(p);
                 } catch (PromemoriaNonEsistenteException ex) {
                 }
-            } else {
-                System.out.println("Nessun promemoria trovato");
             }
         }
     }
-
 }
