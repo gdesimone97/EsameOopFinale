@@ -124,7 +124,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * alla data attuale.Ideata per pulire un elenco dopo un caricamento da
      * file.
      *
-     * @return il numero di elementi rimossi
+     * @return il numero di elementi rimossi.
      */
     public synchronized int rimuoviPromemoriaScaduti() {
         int initialCount = elenco.size();
@@ -137,8 +137,13 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return initialCount - elenco.size();
 
     }
-    
-    public synchronized int size(){
+
+    /**
+     * Metodo thread safe per ottenere il numero di promemoria presenti.
+     *
+     * @return intero non negativo.
+     */
+    public synchronized int size() {
         return elenco.size();
     }
 
@@ -154,6 +159,40 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
             returnString += x.toString() + "\n";
         }
         return returnString;
+    }
+
+    /**
+     * Modifica controllata di un promemoria nella struttura.Il metodo riceve le
+     * informazioni sulla data (giorno, mese, anno, ora, minuti) e sulla
+     * descrizione e modifica il promemoria passato come parametro.Il metodo è
+     * thread safe sulla struttura
+     *
+     * @param p Promemoria da modificare
+     * @param descrizione testo del promemoria
+     * @param giorno giorno della data del promemoria
+     * @param mese mese della data del promemoria
+     * @param anno anno della data del promemoria
+     * @param ora ora ( 0- 23 ) del promemoria
+     * @param minuti minuti ( 0-59 ) del promemoria
+     * @throws DataNonValidaException se la data passata non è valida
+     * @throws DescrizioneNonValidaException se la descrizione è una stringa vuota
+     * @throws PromemoriaNonEsistenteException se il promemoria passato non è presente
+     */
+    public synchronized void modificaPromemoria(Promemoria p, String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws DataNonValidaException, DescrizioneNonValidaException, PromemoriaNonEsistenteException {
+        try {
+            LocalDateTime data = LocalDateTime.of(anno, mese, giorno, ora, minuti);
+            if (data.isBefore(LocalDateTime.now())) {
+                throw new DataNonValidaException();
+            }
+            Promemoria np = new Promemoria(descrizione, data);
+            if (!elenco.remove(p.getData(), p)) {
+                throw new PromemoriaNonEsistenteException();
+            }
+            elenco.put(data, np);
+        } catch (DateTimeException x) {
+            throw new DataNonValidaException();
+        }
+        this.notifyAll();
     }
 
 }
