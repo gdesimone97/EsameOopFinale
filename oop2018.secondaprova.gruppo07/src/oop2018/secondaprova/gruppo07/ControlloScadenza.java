@@ -32,7 +32,11 @@ public class ControlloScadenza extends Thread {
     }
 
    
-    
+    /**
+     * metodo per modificare l'elenco di promemoria su cui opera il thread.
+     * Il metodo non è thread safe sull'elenco.
+     * @param elenco nuovo elenco da settare
+     */
     public void setElenco(ElencoPromemoria elenco) {
         this.elenco = elenco;
     }
