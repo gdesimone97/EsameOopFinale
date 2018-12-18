@@ -28,16 +28,20 @@ public class ControlloScadenza extends Thread {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(secondi * 1000);
-        } catch (InterruptedException ex) {
-        }
-        Promemoria p = ep.ricercaPromemoria(LocalDateTime.now());
-        if (p != null) {
-            EventQueue.invokeLater(() -> JOptionPane.showMessageDialog(frame, p.toString()));
+        while (true) {
             try {
-                ep.rimuoviPromemoria(p);
-            } catch (PromemoriaNonEsistenteException ex) {
+                Thread.sleep(secondi * 1000);
+            } catch (InterruptedException ex) {
+            }
+            Promemoria p = ep.ricercaPromemoria(LocalDateTime.now());
+            if (p != null) {
+                EventQueue.invokeLater(() -> JOptionPane.showMessageDialog(frame, p.toString()));
+                try {
+                    ep.rimuoviPromemoria(p);
+                } catch (PromemoriaNonEsistenteException ex) {
+                }
+            } else {
+                System.out.println("Nessun promemoria trovato");
             }
         }
     }
