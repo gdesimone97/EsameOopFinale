@@ -119,6 +119,17 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return elenco.isEmpty();
     }
 
+    public synchronized void pulisciElenco() {
+        elenco.entrySet().stream().filter(x -> x.getKey().
+                isBefore(LocalDateTime.now())).
+                forEach(x -> {
+                    try {
+                        this.rimuoviPromemoria(x.getValue());
+                    } catch (PromemoriaNonEsistenteException ex) {
+                    }
+                });
+    }
+
     /**
      * stringa formattata per la stampa della struttura
      *
