@@ -129,15 +129,20 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      */
     public synchronized int rimuoviPromemoriaScaduti() {
         int initialCount = elenco.size();
-        System.out.println(initialCount);
+        System.out.println("rimuovii iniziale" + initialCount);
         elenco.entrySet().removeAll(
                 Arrays.asList(
                         elenco.entrySet().stream().
                                 filter(x -> x.getKey().isBefore(LocalDateTime.now())).
                                 toArray()));
-        System.out.println(initialCount - elenco.size());
+        System.out.println("elementi rimossi" + (initialCount - elenco.size()));
+        this.notifyAll();
         return initialCount - elenco.size();
 
+    }
+    
+    public synchronized int size(){
+        return elenco.size();
     }
 
     /**

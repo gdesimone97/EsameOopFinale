@@ -41,16 +41,19 @@ public class Salvataggio {
      * passato come parametro
      *
      * @param nomeFile è il nome del file da cui effettuare il caricamento
+
      * @param elenco è l'elenco promemoria in cui caricare
      * @return restituisce true se il caricamento va a buon fine, false
      * altrimenti
      */
-    public static boolean caricaDaFile(String nomeFile, ElencoPromemoria elenco) {
+    public static ElencoPromemoria caricaDaFile(String nomeFile ) {
+        
         try (ObjectInputStream i = new ObjectInputStream(new BufferedInputStream(new FileInputStream(nomeFile)))) {
-            elenco = (ElencoPromemoria) i.readObject();
-            return true;
+            ElencoPromemoria elenco = (ElencoPromemoria) i.readObject();
+            System.out.println("CARICA: " +elenco.size());
+            return elenco;
         } catch (Exception ex) {
-            return false;
+            return null;
         }
     }
 }
