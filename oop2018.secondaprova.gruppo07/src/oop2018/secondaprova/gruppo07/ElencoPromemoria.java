@@ -119,7 +119,11 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return elenco.isEmpty();
     }
 
-    public synchronized void pulisciElenco() {
+    /**
+     * Metodo thread safe che rimuove tutti i promemoria con data precedente alla data attuale.
+     * Ideata per pulire un elenco dopo un caricamento da file.
+     */
+    public synchronized void rimuoviPromemoriaScaduti() {
         elenco.entrySet().stream().filter(x -> x.getKey().
                 isBefore(LocalDateTime.now())).
                 forEach(x -> {
