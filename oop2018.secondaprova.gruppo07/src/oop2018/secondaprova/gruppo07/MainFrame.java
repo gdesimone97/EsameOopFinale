@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -55,6 +56,10 @@ public class MainFrame extends javax.swing.JFrame {
         URL iconURL = getClass().getResource(path);
         ImageIcon image = new ImageIcon(iconURL);
         frame.setIconImage(image.getImage());
+    }
+    
+    private Icon setIcon(String path){
+        return new ImageIcon(getClass().getResource(path));
     }
 
     private void initInserisciFrame() {
@@ -698,7 +703,7 @@ public class MainFrame extends javax.swing.JFrame {
             synchronized (ep) {
                 int elementiRimossi = ep.rimuoviPromemoriaScaduti();
                 if (elementiRimossi != 0) {
-                    JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi);
+                    JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi,"Elementi scaduti",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/removeItemIcon.png"));
                 }
                 ep.notifyAll();
             }
@@ -709,16 +714,16 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "File caricato con successo");
 
         } else {
-            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
+            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file","Errore",JOptionPane.WARNING_MESSAGE,setIcon("/icone/errorFileIcon.png"));
             ep = epOld;
         }
     }//GEN-LAST:event_caricaButtonActionPerformed
 
     private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
         if (Salvataggio.salvaSuFile(nomeFile, ep)) {
-            JOptionPane.showMessageDialog(this, "Salvataggio completato con successo");
+            JOptionPane.showMessageDialog(this, "Salvataggio completato con successo","Salvataggio",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/affermativeIcon.png"));
         } else {
-            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito");
+            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito","Attenzione",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/warning64.png"));
         }
     }//GEN-LAST:event_salvaButtonActionPerformed
 
@@ -754,7 +759,7 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario", "Attenzione", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/warning64.png")));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto");
+            JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto","Promemoria scaduto",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/timeIcon.png"));
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
@@ -768,7 +773,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annullaButton1ActionPerformed
 
     private void rimuoviAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviAllButtonActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,setIcon("/icone/questioIcon.png")) == JOptionPane.YES_OPTION) {
             ep.svuotaElenco();
             resultLabel.setText("Eliminati tutti i promemoria correttamente");
             //aggiornaModello();
