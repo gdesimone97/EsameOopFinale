@@ -523,7 +523,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultLabel)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -610,6 +610,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_listaValueChanged
 
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
+        
         if (Salvataggio.caricaDaFile(nomeFile, ep)) {
             synchronized (ep) {
                 int elementiRimossi = ep.rimuoviPromemoriaScaduti();
