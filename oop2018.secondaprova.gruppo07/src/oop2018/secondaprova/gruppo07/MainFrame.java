@@ -87,6 +87,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             rimuoviAllButton.setEnabled(true);
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -605,18 +606,14 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_listaValueChanged
 
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
-        ElencoPromemoria p = Salvataggio.caricaDaFile(nomeFile);
-        if (p == null) {
-            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
-        } else {
-            ep = p;
+        if (Salvataggio.caricaDaFile(nomeFile, ep)) {
             synchronized (ep) {
                 JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + ep.rimuoviPromemoriaScaduti());
                 ep.notifyAll();
             }
             JOptionPane.showMessageDialog(this, "File caricato con successo");
-
-        }
+            
+        } else JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
     }//GEN-LAST:event_caricaButtonActionPerformed
 
     private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
