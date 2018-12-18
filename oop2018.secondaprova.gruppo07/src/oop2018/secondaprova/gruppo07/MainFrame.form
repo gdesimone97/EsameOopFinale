@@ -503,14 +503,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="inserisciButton" min="-2" max="-2" attributes="0"/>
-                      <Component id="cancellaButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="modificaButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="rimuoviAllButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="modificaButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="inserisciButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cancellaButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="rimuoviAllButton" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="415" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="441" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -603,7 +603,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icone/removeAllItemsIcon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Rimuovi tutto"/>
+            <Property name="text" type="java.lang.String" value="Svuota"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
