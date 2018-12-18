@@ -99,21 +99,8 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      */
     public synchronized boolean svuotaElenco() {
         this.forEach(x -> {
-            try {
-                rimuoviPromemoria(x);
-            } catch (PromemoriaNonEsistenteException ex) {
-               
-            }
-
+            elenco.remove(x.getData());
         });
-
-//        for (Promemoria x : this) {
-//            try {
-//                rimuoviPromemoria(x);
-//            } catch (PromemoriaNonEsistenteException ex) {
-//                return false;
-//            }
-//        }
         return true;
     }
 
