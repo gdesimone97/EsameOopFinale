@@ -612,7 +612,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
         ElencoPromemoria epOld = ep;
         if ((ep = Salvataggio.caricaDaFile(nomeFile))!=null) {
-            System.out.println("CARICA button: " +ep.size()); //CANCELLA
             synchronized(epOld){
                 epOld.notifyAll();
             }

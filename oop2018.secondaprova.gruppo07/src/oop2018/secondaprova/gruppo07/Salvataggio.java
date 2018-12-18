@@ -50,7 +50,6 @@ public class Salvataggio {
         
         try (ObjectInputStream i = new ObjectInputStream(new BufferedInputStream(new FileInputStream(nomeFile)))) {
             ElencoPromemoria elenco = (ElencoPromemoria) i.readObject();
-            System.out.println("CARICA: " +elenco.size());
             return elenco;
         } catch (Exception ex) {
             return null;
