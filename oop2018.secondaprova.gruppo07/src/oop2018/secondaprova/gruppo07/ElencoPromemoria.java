@@ -8,6 +8,7 @@ package oop2018.secondaprova.gruppo07;
 import java.io.*;
 import java.time.*;
 import java.util.*;
+import java.util.stream.*;
 
 /**
  * Struttura dati per la gestione di promemoria. La struttura previene elementi
@@ -120,19 +121,22 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     }
 
     /**
-     * Metodo thread safe che rimuove tutti i promemoria con data precedente alla data attuale.
-     * Ideata per pulire un elenco dopo un caricamento da file.
+     * Metodo thread safe che rimuove tutti i promemoria con data precedente alla data attuale.Ideata per pulire un elenco dopo un caricamento da file.
+     * @return il numero di elementi rimossi
      */
-    public synchronized void rimuoviPromemoriaScaduti() {
-        elenco.entrySet().stream().filter(x -> x.getKey().
-                isBefore(LocalDateTime.now())).
-                forEach(x -> {
+    public synchronized long rimuoviPromemoriaScaduti() {
+        Stream<Map.Entry<LocalDateTime, Promemoria>> s = elenco.entrySet().stream().
+                filter(x -> x.getKey().
+                isBefore(LocalDateTime.now()));
+        long count = s.count();
+        s.forEach(x -> {
                     try {
                         this.rimuoviPromemoria(x.getValue());
                     } catch (PromemoriaNonEsistenteException ex) {
                     }
                 });
         this.notifyAll();
+        return count;
     }
 
     /**
