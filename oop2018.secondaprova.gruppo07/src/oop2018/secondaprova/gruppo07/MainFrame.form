@@ -411,6 +411,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="salvaButton">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/UploadIcon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salva"/>
               </Properties>
               <Events>
@@ -419,6 +422,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="caricaButton">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icone/DownloadIcon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Carica"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>

@@ -480,6 +480,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        salvaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/UploadIcon.png"))); // NOI18N
         salvaButton.setText("Salva");
         salvaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,6 +489,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(salvaButton);
 
+        caricaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/DownloadIcon.png"))); // NOI18N
         caricaButton.setText("Carica");
         caricaButton.setToolTipText("");
         caricaButton.addActionListener(new java.awt.event.ActionListener() {
