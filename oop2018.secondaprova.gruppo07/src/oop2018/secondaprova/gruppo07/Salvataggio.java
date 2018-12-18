@@ -29,7 +29,6 @@ public class Salvataggio {
         synchronized (e) {
             try (ObjectOutputStream i = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(nomeFile)))) {
                 i.writeObject(e);
-                e.notifyAll();
                 return true;
             } catch (Exception ex) {
                 return false;
