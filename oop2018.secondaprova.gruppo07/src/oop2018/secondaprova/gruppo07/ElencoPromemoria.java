@@ -24,11 +24,9 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * Costruttore che inizializza la classe a una struttura inizialmente vuota.
      */
     public ElencoPromemoria() {
-        this.elenco =  new TreeMap<>();
+        this.elenco = new TreeMap<>();
     }
 
-    
-    
     /**
      * Inserimento controllato di un promemoria nella struttura.Il metodo riceve
      * le informazioni sulla data (giorno, mese, anno, ora, minuti) e sulla
@@ -91,12 +89,15 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     }
 
     /**
-     * Metodo thread safe per la rimozione di tutti gli elementi della struttura.
-     * @return true se la rimozione viene effettuata con successo, false in caso contrario
+     * Metodo thread safe per la rimozione di tutti gli elementi della
+     * struttura.
+     *
+     * @return true se la rimozione viene effettuata con successo, false in caso
+     * contrario
      */
     public synchronized boolean svuotaElenco() {
-       
-        for(Promemoria x: this){
+
+        for (Promemoria x : this) {
             try {
                 rimuoviPromemoria(x);
             } catch (PromemoriaNonEsistenteException ex) {
@@ -105,21 +106,25 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         }
         return true;
     }
-    
+
     /**
      * Metodo per la ricerca di un promemoria in base alla data/ora
+     *
      * @param data data/ora di cui cercare il promemoria
-     * @return il promemoria trovato o null se non c'è nessun promemoria corrispondente
+     * @return il promemoria trovato o null se non c'è nessun promemoria
+     * corrispondente
      */
-    public synchronized Promemoria ricercaPromemoria(LocalDateTime data){
+    public synchronized Promemoria ricercaPromemoria(LocalDateTime data) {
         return elenco.get(data);
     }
+
     /**
      * Metodo thread-safe per controllare se la struttura dati è vuota
+     *
      * @return Restituisce true se la struttura dati è vuota, false altrimenti
      */
-    public synchronized boolean isEmpty(){
+    public synchronized boolean isEmpty() {
         return elenco.isEmpty();
     }
-    
+
 }
