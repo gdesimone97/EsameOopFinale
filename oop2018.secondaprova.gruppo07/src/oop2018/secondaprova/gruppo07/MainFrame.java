@@ -1,23 +1,27 @@
 package oop2018.secondaprova.gruppo07;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.time.*;
+import java.util.*;
+import javax.swing.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * GUI principale dell'applicazione.
+ * Prevede la possibilità di:
+ *  - visualizzare una lista di promemoria ordinata cronologicamente;
+ *  - inserire un promemoria nella lista;
+ *  - rimuovere/modificare un promemoria dalla lista;
+ *  - cancellare tutti i promemoria presenti nella lista.
+ * Inoltre, tramite la barra dei menu, è possibile caricare un elenco di promemoria da un file locale predefinito
+ * e salvare l'elenco corrente nello stesso file (prevede la sovrascrittura dell'elenco precedente).
+ * <p>
+ * La classe inoltre istanzia due thread:
+ *  - gestione e visualizzazione dei promemoria all'interno della lista;
+ *  - controllo a run time dei promemoria in scadenza con aggiornamento automatico della lista
+ * <p>
+ * Tutte le operazioni che apportano una modifica all'elenco visualizzano delle opportune finestre
+ * per effettuare la specifica operazione o dei messaggi di avviso e/o conferma.
+ * 
  * @author gruppo07
  */
 public class MainFrame extends javax.swing.JFrame {
@@ -28,7 +32,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final ControlloScadenza threadSalvataggio;
 
     /**
-     * Creates new form MainFrame
+     * Costruttore della classe che istanzia un nuovo elenco promemoria,
+     * e fa partire i thread per l'aggiornamento della lista
+     * e il controllo delle scadenze.
      */
     public MainFrame() {
         ep = new ElencoPromemoria();
