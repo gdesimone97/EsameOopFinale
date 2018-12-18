@@ -35,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
             while (true) {
                 synchronized (ep) {
                     try {
-                        ep.wait();aggiornaModello();
+                        ep.wait();
                         aggiornaModello();
                     } catch (InterruptedException ex) {
 
