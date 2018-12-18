@@ -8,8 +8,6 @@ package oop2018.secondaprova.gruppo07;
 import java.io.*;
 import java.time.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Struttura dati per la gestione di promemoria. La struttura previene elementi
@@ -108,5 +106,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return elenco.get(data);
     }
     
-    
+    public synchronized boolean isEmpty(){
+        return elenco.isEmpty();
+    }
 }
