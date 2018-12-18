@@ -708,9 +708,10 @@ public class MainFrame extends javax.swing.JFrame {
                 ep.notifyAll();
             }
             synchronized (epOld) {
+                threadSalvataggio.setElenco(ep);
                 epOld.notifyAll();
             }
-            threadSalvataggio.setElenco(ep);
+            
             JOptionPane.showMessageDialog(this, "File caricato con successo","Caricamento completato",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/affermativeIcon.png"));
         } else {
             JOptionPane.showMessageDialog(this, "Errore nel caricamento del file","Errore",JOptionPane.WARNING_MESSAGE,setIcon("/icone/errorFileIcon.png"));
