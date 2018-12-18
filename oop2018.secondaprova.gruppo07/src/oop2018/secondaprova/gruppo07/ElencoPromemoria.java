@@ -129,8 +129,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
        Stream<Map.Entry<LocalDateTime, Promemoria>> s = elenco.entrySet().stream().
                 filter(x -> x.getKey().
                 isBefore(LocalDateTime.now()));
-        return s.count();
-        /*
+        long count =  s.count();
         s.forEach(x -> {
                     try {
                         this.rimuoviPromemoria(x.getValue());
@@ -139,7 +138,6 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
                 });
         this.notifyAll();
         return count;
-        */
     }
 
     /**
