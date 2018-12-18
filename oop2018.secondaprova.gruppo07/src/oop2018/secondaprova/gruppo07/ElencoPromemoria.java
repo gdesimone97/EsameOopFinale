@@ -8,6 +8,8 @@ package oop2018.secondaprova.gruppo07;
 import java.io.*;
 import java.time.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Struttura dati per la gestione di promemoria. La struttura previene elementi
@@ -96,14 +98,22 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * contrario
      */
     public synchronized boolean svuotaElenco() {
-
-        for (Promemoria x : this) {
+        this.forEach(x -> {
             try {
                 rimuoviPromemoria(x);
             } catch (PromemoriaNonEsistenteException ex) {
-                return false;
+               
             }
-        }
+
+        });
+
+//        for (Promemoria x : this) {
+//            try {
+//                rimuoviPromemoria(x);
+//            } catch (PromemoriaNonEsistenteException ex) {
+//                return false;
+//            }
+//        }
         return true;
     }
 
