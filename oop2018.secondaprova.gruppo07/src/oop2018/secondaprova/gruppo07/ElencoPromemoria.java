@@ -8,6 +8,7 @@ package oop2018.secondaprova.gruppo07;
 import java.io.*;
 import java.time.*;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -121,4 +122,12 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return elenco.isEmpty();
     }
 
+    @Override
+    public String toString(){
+        String returnString = "";
+        for(Promemoria x : this)
+            returnString+=x.toString()+"\n";
+        return returnString;
+    }
+    
 }
