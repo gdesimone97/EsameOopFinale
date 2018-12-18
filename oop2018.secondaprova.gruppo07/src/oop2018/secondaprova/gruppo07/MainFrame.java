@@ -284,7 +284,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(confermaButton)
                         .addGap(18, 18, 18)
                         .addComponent(annullaButton)))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +313,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton)
                     .addComponent(annullaButton))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
@@ -326,6 +326,12 @@ public class MainFrame extends javax.swing.JFrame {
             inserisciFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        modificaFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                modificaFrameWindowClosing(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Modifica"));
         jPanel3.setPreferredSize(new java.awt.Dimension(390, 340));
@@ -442,7 +448,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(confermaButton1)
                         .addGap(18, 18, 18)
                         .addComponent(annullaButton1)))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,7 +477,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton1)
                     .addComponent(annullaButton1))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout modificaFrameLayout = new javax.swing.GroupLayout(modificaFrame.getContentPane());
@@ -763,7 +769,6 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario", "Attenzione", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/warning64.png")));
         } catch (Exception ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto", "Promemoria scaduto", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/timeIcon.png"));
             modificaFrame.setVisible(false);
             this.setEnabled(true);
@@ -808,7 +813,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void orarioText1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orarioText1KeyPressed
         int keyPressed = evt.getKeyCode();
         if (keyPressed == evt.VK_ENTER) {
-            confermaButtonActionPerformed(null);
+            confermaButton1ActionPerformed(null);
         }
     }//GEN-LAST:event_orarioText1KeyPressed
 
@@ -871,6 +876,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void annoSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_annoSpinnerMouseWheelMoved
         annoSpinner.setValue((Integer) annoSpinner.getValue() - evt.getWheelRotation());
     }//GEN-LAST:event_annoSpinnerMouseWheelMoved
+
+    private void modificaFrameWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_modificaFrameWindowClosing
+        this.setEnabled(true);
+    }//GEN-LAST:event_modificaFrameWindowClosing
 
     /**
      * @param args the command line arguments
