@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -28,8 +30,21 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         ep = new ElencoPromemoria();
         initComponents();
-        aggiornaModello();
+        //aggiornaModello();
         resultLabel.setText("");
+        new ControlloScadenza(ep, 15, this).start();
+        new Thread(() -> {
+            while (true) {
+                synchronized (ep) {
+                    try {
+                        ep.wait();
+                        aggiornaModello();
+                    } catch (InterruptedException ex) {
+
+                    }
+                }
+            }
+        }).start();
     }
 
     private void initInserisciFrame() {
@@ -54,7 +69,6 @@ public class MainFrame extends javax.swing.JFrame {
         campoOrario1.setVisible(false);
 
         Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
-        System.out.println(p);
         giornoSpinner1.setValue(p.getData().getDayOfMonth());
         meseSpinner1.setValue(p.getData().getMonthValue());
         annoSpinner1.setValue(p.getData().getYear());
@@ -62,10 +76,11 @@ public class MainFrame extends javax.swing.JFrame {
         descrizioneText1.setText(p.getDescrizione());
     }
 
-    private void aggiornaModello() {
+    private synchronized void aggiornaModello() {
+
         dm.clear();
 
-        ep.forEach(p-> dm.addElement(p));
+        ep.forEach(p -> dm.addElement(p));
 
         lista.setModel(dm);
 
@@ -548,7 +563,7 @@ public class MainFrame extends javax.swing.JFrame {
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            aggiornaModello();
+            //aggiornaModello();
         } catch (DataNonValidaException | InputMismatchException ex) {
             campoOrario.setVisible(true);
             if (descrizioneText.getText().equals("")) {
@@ -567,7 +582,7 @@ public class MainFrame extends javax.swing.JFrame {
             Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
             if (JOptionPane.showConfirmDialog(this, p + "\nVuoi cancellare questo promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 ep.rimuoviPromemoria(p);
-                aggiornaModello();
+                //aggiornaModello();
                 resultLabel.setText("Promemoria rimosso correttamente");
             }
         } catch (PromemoriaNonEsistenteException ex) {
@@ -597,7 +612,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "File caricato con successo");
             ep = p;
-            aggiornaModello();
+            //aggiornaModello();
         }
     }//GEN-LAST:event_caricaButtonActionPerformed
 
@@ -631,7 +646,7 @@ public class MainFrame extends javax.swing.JFrame {
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            aggiornaModello();
+            //aggiornaModello();
         } catch (DataNonValidaException | InputMismatchException ex) {
             campoOrario1.setVisible(true);
             if (descrizioneText1.getText().equals("")) {
@@ -641,8 +656,11 @@ public class MainFrame extends javax.swing.JFrame {
             campoDescrizione1.setVisible(true);
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
-        } catch (PromemoriaNonEsistenteException ex) {
-
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto");
+            modificaFrame.setVisible(false);
+            this.setEnabled(true);
+            this.setVisible(true);
         }
     }//GEN-LAST:event_confermaButton1ActionPerformed
 
@@ -655,10 +673,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void rimuoviAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviAllButtonActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             ep.svuotaElenco();
-                resultLabel.setText("Eliminati tutti i promemoria correttamente");
-            aggiornaModello();
-            System.out.println(ep);
-        }   
+            resultLabel.setText("Eliminati tutti i promemoria correttamente");
+            //aggiornaModello();
+        }
     }//GEN-LAST:event_rimuoviAllButtonActionPerformed
 
     /**
@@ -690,11 +707,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
+
             }
         });
-
     }
 
 
