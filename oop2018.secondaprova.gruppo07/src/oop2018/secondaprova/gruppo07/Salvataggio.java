@@ -5,12 +5,7 @@
  */
 package oop2018.secondaprova.gruppo07;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * La classe implementa due metodi che permettono il salvataggio su un file ed il caricamenta da un file
@@ -28,6 +23,7 @@ public class Salvataggio {
         synchronized(e){
             try(ObjectOutputStream i = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(nomeFile)))){
                 i.writeObject(e);
+                e.notifyAll();
                 return true;
             }catch(Exception ex){
                 return false;
@@ -43,6 +39,7 @@ public class Salvataggio {
     public static ElencoPromemoria caricaDaFile(String nomeFile){
              try(ObjectInputStream i = new ObjectInputStream(new BufferedInputStream(new FileInputStream(nomeFile)))){
                ElencoPromemoria r = (ElencoPromemoria) i.readObject();
+               r.notifyAll();
                return r;
            }catch(Exception ex){
                return null;
