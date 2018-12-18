@@ -125,10 +125,12 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * @return il numero di elementi rimossi
      */
     public synchronized long rimuoviPromemoriaScaduti() {
-        Stream<Map.Entry<LocalDateTime, Promemoria>> s = elenco.entrySet().stream().
+        
+       Stream<Map.Entry<LocalDateTime, Promemoria>> s = elenco.entrySet().stream().
                 filter(x -> x.getKey().
                 isBefore(LocalDateTime.now()));
-        long count = s.count();
+        return s.count();
+        /*
         s.forEach(x -> {
                     try {
                         this.rimuoviPromemoria(x.getValue());
@@ -137,6 +139,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
                 });
         this.notifyAll();
         return count;
+        */
     }
 
     /**
