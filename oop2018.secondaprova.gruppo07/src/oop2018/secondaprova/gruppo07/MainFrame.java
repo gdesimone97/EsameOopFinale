@@ -1,10 +1,12 @@
 package oop2018.secondaprova.gruppo07;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -27,6 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         ep = new ElencoPromemoria();
+        initFrameIcon();
         initComponents();
         aggiornaModello();
         resultLabel.setText("");
@@ -45,6 +48,12 @@ public class MainFrame extends javax.swing.JFrame {
         }).start();
     }
 
+    private void initFrameIcon(){
+        URL iconURL=getClass().getResource("/icone/frameIcon.png");
+        ImageIcon image=new ImageIcon(iconURL);
+        this.setIconImage(image.getImage());
+    }
+    
     private void initInserisciFrame() {
         inserisciFrame.setLocationRelativeTo(this);
         inserisciFrame.setSize(inserisciFrame.getPreferredSize());
