@@ -662,10 +662,9 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             ora = sc.nextInt();
             minuti = sc.nextInt();
-            ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
-            ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
+            Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
+            ep.modificaPromemoria(p, descrizione, giorno, mese, anno, ora, minuti);
             resultLabel.setText("Promemoria modificato correttamente");
-
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
@@ -677,9 +676,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione1.setVisible(true);
-        } catch (PromemoriaPresenteException ex) {
-            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
-        } catch (Exception ex) {
+        } catch (PromemoriaNonEsistenteException ex) {
             JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto");
             modificaFrame.setVisible(false);
             this.setEnabled(true);
