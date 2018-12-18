@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -29,7 +30,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         ep = new ElencoPromemoria();
-        initFrameIcon();
+        setFrameIcon(this,"/icone/frameIcon.png");
+        //setFrameIcon(inserisciFrame,"/icone/frameIcon.png");
         initComponents();
         aggiornaModello();
         resultLabel.setText("");
@@ -48,10 +50,10 @@ public class MainFrame extends javax.swing.JFrame {
         }).start();
     }
 
-    private void initFrameIcon(){
-        URL iconURL=getClass().getResource("/icone/frameIcon.png");
+    private void setFrameIcon(JFrame frame,String path){
+        URL iconURL=getClass().getResource(path);
         ImageIcon image=new ImageIcon(iconURL);
-        this.setIconImage(image.getImage());
+        frame.setIconImage(image.getImage());
     }
     
     private void initInserisciFrame() {
@@ -576,7 +578,6 @@ public class MainFrame extends javax.swing.JFrame {
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            //aggiornaModello();
         } catch (DataNonValidaException | InputMismatchException ex) {
             campoOrario.setVisible(true);
             if (descrizioneText.getText().equals("")) {
@@ -585,7 +586,7 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione.setVisible(true);
         } catch (PromemoriaPresenteException ex) {
-            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario","Attenzione",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/icone/warning64.png")));
         }
     }//GEN-LAST:event_confermaButtonActionPerformed
 
@@ -593,7 +594,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void cancellaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancellaButtonActionPerformed
         try {
             Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
-            if (JOptionPane.showConfirmDialog(this, p + "\nVuoi cancellare questo promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, p + "\nVuoi cancellare questo promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,new ImageIcon(getClass().getResource("/icone/questionIcon.png"))) == JOptionPane.YES_OPTION) {
                 ep.rimuoviPromemoria(p);
                 //aggiornaModello();
                 resultLabel.setText("Promemoria rimosso correttamente");
