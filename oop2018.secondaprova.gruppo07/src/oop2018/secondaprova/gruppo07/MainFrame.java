@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -410,6 +408,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(lista);
 
+        inserisciButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/addIcon.png"))); // NOI18N
         inserisciButton.setText("Inserisci");
         inserisciButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +460,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(inserisciButton)
                         .addGap(18, 18, 18)
@@ -519,7 +518,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultLabel)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -610,9 +609,13 @@ public class MainFrame extends javax.swing.JFrame {
         if (p == null) {
             JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
         } else {
-            JOptionPane.showMessageDialog(this, "File caricato con successo");
             ep = p;
-            //aggiornaModello();
+            synchronized (ep) {
+                JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + ep.rimuoviPromemoriaScaduti());
+                ep.notifyAll();
+            }
+            JOptionPane.showMessageDialog(this, "File caricato con successo");
+
         }
     }//GEN-LAST:event_caricaButtonActionPerformed
 
