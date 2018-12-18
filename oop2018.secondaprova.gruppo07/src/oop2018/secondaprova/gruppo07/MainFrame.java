@@ -772,7 +772,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annullaButton1ActionPerformed
 
     private void rimuoviAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviAllButtonActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,setIcon("/icone/questioIcon.png")) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,setIcon("/icone/questionIcon.png")) == JOptionPane.YES_OPTION) {
             ep.svuotaElenco();
             resultLabel.setText("Eliminati tutti i promemoria correttamente");
             //aggiornaModello();
