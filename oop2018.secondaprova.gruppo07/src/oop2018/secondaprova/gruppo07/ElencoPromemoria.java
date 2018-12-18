@@ -5,6 +5,7 @@
  */
 package oop2018.secondaprova.gruppo07;
 
+import java.io.*;
 import java.time.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -17,7 +18,9 @@ import java.util.logging.Logger;
  *
  * @author gruppo07
  */
-public class ElencoPromemoria extends TreeSet<Promemoria> {
+public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
+
+    private TreeMap<LocalDateTime, Promemoria> elenco;
 
     /**
      * Inserimento controllato di un promemoria nella struttura.Il metodo riceve
@@ -34,24 +37,24 @@ public class ElencoPromemoria extends TreeSet<Promemoria> {
      * @throws PromemoriaPresenteException se esiste già un promemoria con
      * quella data
      * @throws DataNonValidaException se la data passata non è valida
-     * @throws DescrizineNonValidaException se la descrizione è una stringa
+     * @throws DescrizioneNonValidaException se la descrizione è una stringa
      * vuota
      */
     public synchronized void inserisciPromemoria(String descrizione, int giorno, int mese, int anno, int ora, int minuti) throws PromemoriaPresenteException, DataNonValidaException, DescrizioneNonValidaException {
-        Promemoria p;
+
         try {
             LocalDateTime data = LocalDateTime.of(anno, mese, giorno, ora, minuti);
             if (data.isBefore(LocalDateTime.now())) {
                 throw new DataNonValidaException();
             }
-            p = new Promemoria(descrizione, data);
+            Promemoria p = new Promemoria(descrizione, data);
+            if (elenco.putIfAbsent(data, p) != null) {
+                throw new PromemoriaPresenteException();
+            }
         } catch (DateTimeException x) {
             throw new DataNonValidaException();
         }
 
-        if (!this.add(p)) {
-            throw new PromemoriaPresenteException();
-        }
         this.notifyAll();
     }
 
@@ -64,9 +67,46 @@ public class ElencoPromemoria extends TreeSet<Promemoria> {
      * nella struttura dati
      */
     public synchronized void rimuoviPromemoria(Promemoria p) throws PromemoriaNonEsistenteException {
-        if (!this.remove(p)) {
+        if (!elenco.remove(p.getData(), p)) {
             throw new PromemoriaNonEsistenteException();
         }
         this.notifyAll();
     }
+
+    /**
+     * Iteratore sulla collezione di promemoria
+     *
+     * @return un iteratore di promemoria
+     */
+    @Override
+    public Iterator<Promemoria> iterator() {
+        return elenco.values().iterator();
+    }
+
+    /**
+     * Metodo thread safe per la rimozione di tutti gli elementi della struttura.
+     * @return true se la rimozione viene effettuata con successo, false in caso contrario
+     */
+    public synchronized boolean svuotaElenco() {
+       
+        for(Promemoria x: this){
+            try {
+                rimuoviPromemoria(x);
+            } catch (PromemoriaNonEsistenteException ex) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Metodo per la ricerca di un promemoria in base alla data/ora
+     * @param data data/ora di cui cercare il promemoria
+     * @return il promemoria trovato o null se non c'è nessun promemoria corrispondente
+     */
+    public synchronized Promemoria ricercaPromemoria(LocalDateTime data){
+        return elenco.get(data);
+    }
+    
+    
 }
