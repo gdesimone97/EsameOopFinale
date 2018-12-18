@@ -35,24 +35,24 @@ public class MainFrame extends javax.swing.JFrame {
     private void initInserisciFrame() {
         inserisciFrame.setLocationRelativeTo(this);
         inserisciFrame.setSize(inserisciFrame.getPreferredSize());
-        
+
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
-        
+
         descrizioneText.setText("");
         giornoSpinner.setValue(LocalDate.now().getDayOfMonth());
         meseSpinner.setValue(LocalDate.now().getMonthValue());
         annoSpinner.setValue(LocalDate.now().getYear());
         orarioText.setText(LocalTime.now().toString());
     }
-    
+
     private void initModificaFrame() {
         modificaFrame.setLocationRelativeTo(this);
         modificaFrame.setSize(inserisciFrame.getPreferredSize());
-        
+
         campoDescrizione1.setVisible(false);
         campoOrario1.setVisible(false);
-        
+
         Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
         System.out.println(p);
         giornoSpinner1.setValue(p.getData().getDayOfMonth());
@@ -64,8 +64,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void aggiornaModello() {
         dm.clear();
-        ep.forEach(p -> dm.addElement(p));
+
+        ep.forEach(p-> dm.addElement(p));
+
         lista.setModel(dm);
+
+        if (ep.isEmpty()) {
+            rimuoviAllButton.setEnabled(false);
+        } else {
+            rimuoviAllButton.setEnabled(true);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -412,6 +420,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         rimuoviAllButton.setText("Rimuovi tutto");
         rimuoviAllButton.setEnabled(false);
+        rimuoviAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rimuoviAllButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -575,11 +588,6 @@ public class MainFrame extends javax.swing.JFrame {
             cancellaButton.setEnabled(false);
             modificaButton.setEnabled(false);
         }
-        
-        //DA RIVEDERE (PER ABILITARE RimuoviAllButton)
-        if(ep.isEmpty())
-            rimuoviAllButton.setEnabled(false);
-        else rimuoviAllButton.setEnabled(true);
     }//GEN-LAST:event_listaValueChanged
 
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
@@ -594,12 +602,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_caricaButtonActionPerformed
 
     private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
-       if(Salvataggio.salvaSuFile(nomeFile, ep)){
-           JOptionPane.showMessageDialog(this, "Salvataggio completato con successo");
-       }
-       else{
-           JOptionPane.showMessageDialog(this, "Salvataggio non riuscito");
-       }
+        if (Salvataggio.salvaSuFile(nomeFile, ep)) {
+            JOptionPane.showMessageDialog(this, "Salvataggio completato con successo");
+        } else {
+            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito");
+        }
     }//GEN-LAST:event_salvaButtonActionPerformed
 
     private void confermaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButton1ActionPerformed
@@ -620,7 +627,7 @@ public class MainFrame extends javax.swing.JFrame {
             ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
             resultLabel.setText("Promemoria modificato correttamente");
-            
+
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
@@ -644,6 +651,15 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
         this.setEnabled(true);
     }//GEN-LAST:event_annullaButton1ActionPerformed
+
+    private void rimuoviAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviAllButtonActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            ep.svuotaElenco();
+                resultLabel.setText("Eliminati tutti i promemoria correttamente");
+            aggiornaModello();
+            System.out.println(ep);
+        }   
+    }//GEN-LAST:event_rimuoviAllButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -678,9 +694,9 @@ public class MainFrame extends javax.swing.JFrame {
                 new MainFrame().setVisible(true);
             }
         });
-    
+
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner annoSpinner;
