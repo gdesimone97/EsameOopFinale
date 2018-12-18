@@ -107,7 +107,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
      * corrispondente
      */
     public synchronized Promemoria ricercaPromemoria(LocalDateTime data) {
-        return elenco.get(data.withSecond(0));
+        return elenco.get(data.withSecond(0).withNano(0));
     }
 
     /**
