@@ -21,6 +21,15 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     private TreeMap<LocalDateTime, Promemoria> elenco;
 
     /**
+     * Costruttore che inizializza la classe a una struttura inizialmente vuota.
+     */
+    public ElencoPromemoria() {
+        this.elenco =  new TreeMap<>();
+    }
+
+    
+    
+    /**
      * Inserimento controllato di un promemoria nella struttura.Il metodo riceve
      * le informazioni sulla data (giorno, mese, anno, ora, minuti) e sulla
      * descrizione e inserisce un nuovo promemoria se non è già presente uno con
@@ -112,4 +121,5 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     public synchronized boolean isEmpty(){
         return elenco.isEmpty();
     }
+    
 }
