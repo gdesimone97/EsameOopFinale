@@ -139,7 +139,6 @@ public class MainFrame extends javax.swing.JFrame {
         salvaButton = new javax.swing.JMenuItem();
         caricaButton = new javax.swing.JMenuItem();
 
-        inserisciFrame.setPreferredSize(new java.awt.Dimension(400, 340));
         inserisciFrame.setResizable(false);
         inserisciFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -417,6 +416,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        cancellaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/removeIcon.png"))); // NOI18N
         cancellaButton.setText("Cancella");
         cancellaButton.setEnabled(false);
         cancellaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -425,6 +425,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        modificaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/editItemIcon.png"))); // NOI18N
         modificaButton.setText("Modifica");
         modificaButton.setEnabled(false);
         modificaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -433,6 +434,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        rimuoviAllButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icone/removeAllItemsIcon.png"))); // NOI18N
         rimuoviAllButton.setText("Rimuovi tutto");
         rimuoviAllButton.setEnabled(false);
         rimuoviAllButton.addActionListener(new java.awt.event.ActionListener() {

@@ -4,9 +4,6 @@
   <NonVisualComponents>
     <Container class="javax.swing.JFrame" name="inserisciFrame">
       <Properties>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[400, 340]"/>
-        </Property>
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -573,6 +570,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="cancellaButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/removeIcon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cancella"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -582,6 +582,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="modificaButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/editItemIcon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modifica"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -591,6 +594,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="rimuoviAllButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icone/removeAllItemsIcon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Rimuovi tutto"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
