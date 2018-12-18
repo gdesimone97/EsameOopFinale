@@ -608,12 +608,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
         if (Salvataggio.caricaDaFile(nomeFile, ep)) {
             synchronized (ep) {
-                JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + ep.rimuoviPromemoriaScaduti());
+                int elementiRimossi = ep.rimuoviPromemoriaScaduti();
+                if (elementiRimossi != 0) {
+                    JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi);
+                }
                 ep.notifyAll();
             }
             JOptionPane.showMessageDialog(this, "File caricato con successo");
-            
-        } else JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
+        }
     }//GEN-LAST:event_caricaButtonActionPerformed
 
     private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
