@@ -132,6 +132,7 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
                     } catch (PromemoriaNonEsistenteException ex) {
                     }
                 });
+        this.notifyAll();
     }
 
     /**
