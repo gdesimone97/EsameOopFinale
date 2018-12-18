@@ -7,11 +7,14 @@ package oop2018.secondaprova.gruppo07;
 
 import java.awt.EventQueue;
 import java.time.LocalDateTime;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- * La classe è un thread che si occupa di controllare se i promemoria sono scaduti
+ * La classe è un thread che si occupa di controllare se i promemoria sono
+ * scaduti
+ *
  * @author gruppo07
  */
 public class ControlloScadenza extends Thread {
@@ -19,29 +22,31 @@ public class ControlloScadenza extends Thread {
     private ElencoPromemoria elenco;
     private int secondi;
     private JFrame frame;
-/**
- * Crea un thread ControllaScadenza
- * @param ep Elenco su cui effettuare il controllo
- * @param secondi Intervallo di tempo tra due controlli consecutivi
- * @param frame Frame rispetto al quale far comparire il messaggio di notifica
- */
+
+    /**
+     * Crea un thread ControllaScadenza
+     *
+     * @param ep Elenco su cui effettuare il controllo
+     * @param secondi Intervallo di tempo tra due controlli consecutivi
+     * @param frame Frame rispetto al quale far comparire il messaggio di
+     * notifica
+     */
     public ControlloScadenza(ElencoPromemoria elenco, int secondi, JFrame frame) {
         this.elenco = elenco;
         this.secondi = secondi;
         this.frame = frame;
     }
 
-   
-    
     public void setElenco(ElencoPromemoria elenco) {
         this.elenco = elenco;
     }
 
-     /**
-     * Il thread esegue una sleep di un tempo pari a quello passatto come parametro al costruttore in secondi<br>
-     * Controlla se sono scaduti promemoria ed eventualemente li elimina facendo comparire una finestra informativa
+    /**
+     * Il thread esegue una sleep di un tempo pari a quello passatto come
+     * parametro al costruttore in secondi<br>
+     * Controlla se sono scaduti promemoria ed eventualemente li elimina facendo
+     * comparire una finestra informativa
      */
-    
     @Override
     public void run() {
         while (true) {
@@ -51,7 +56,7 @@ public class ControlloScadenza extends Thread {
             }
             Promemoria p = elenco.ricercaPromemoria(LocalDateTime.now());
             if (p != null) {
-                EventQueue.invokeLater(() -> JOptionPane.showMessageDialog(frame, p.toString()+"\nPromemoria cancellato"));
+                EventQueue.invokeLater(() -> JOptionPane.showMessageDialog(frame, p.toString() + "\nPromemoria cancellato", "Scaduto", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/timeIcon.png"))));
                 try {
                     elenco.rimuoviPromemoria(p);
                 } catch (PromemoriaNonEsistenteException ex) {

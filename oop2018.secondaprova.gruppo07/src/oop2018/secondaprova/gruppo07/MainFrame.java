@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 /**
  *
- * @author desio
+ * @author gruppo07
  */
 public class MainFrame extends javax.swing.JFrame {
 
@@ -26,13 +26,13 @@ public class MainFrame extends javax.swing.JFrame {
     private DefaultListModel dm = new DefaultListModel();
     private final String nomeFile = "backup.dat";
     private final ControlloScadenza threadSalvataggio;
+
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         ep = new ElencoPromemoria();
         setFrameIcon(this, "/icone/frameIcon.png");
-        //setFrameIcon(inserisciFrame,"/icone/frameIcon.png");
         initComponents();
         aggiornaModello();
         resultLabel.setText("");
@@ -57,8 +57,8 @@ public class MainFrame extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(iconURL);
         frame.setIconImage(image.getImage());
     }
-    
-    private Icon setIcon(String path){
+
+    private Icon setIcon(String path) {
         return new ImageIcon(getClass().getResource(path));
     }
 
@@ -674,7 +674,6 @@ public class MainFrame extends javax.swing.JFrame {
             Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
             if (JOptionPane.showConfirmDialog(this, p + "\nVuoi cancellare questo promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/icone/questionIcon.png"))) == JOptionPane.YES_OPTION) {
                 ep.rimuoviPromemoria(p);
-                //aggiornaModello();
                 resultLabel.setText("Promemoria rimosso correttamente");
             }
         } catch (PromemoriaNonEsistenteException ex) {
@@ -703,7 +702,7 @@ public class MainFrame extends javax.swing.JFrame {
             synchronized (ep) {
                 int elementiRimossi = ep.rimuoviPromemoriaScaduti();
                 if (elementiRimossi != 0) {
-                    JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi,"Elementi scaduti",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/removeItemIcon.png"));
+                    JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi, "Elementi scaduti", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/removeItemIcon.png"));
                 }
                 ep.notifyAll();
             }
@@ -711,18 +710,18 @@ public class MainFrame extends javax.swing.JFrame {
                 epOld.notifyAll();
             }
             threadSalvataggio.setElenco(ep);
-            JOptionPane.showMessageDialog(this, "File caricato con successo","Caricamento completato",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/affermativeIcon.png"));
+            JOptionPane.showMessageDialog(this, "File caricato con successo", "Caricamento completato", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/affermativeIcon.png"));
         } else {
-            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file","Errore",JOptionPane.WARNING_MESSAGE,setIcon("/icone/errorFileIcon.png"));
+            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file", "Errore", JOptionPane.WARNING_MESSAGE, setIcon("/icone/errorFileIcon.png"));
             ep = epOld;
         }
     }//GEN-LAST:event_caricaButtonActionPerformed
 
     private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
         if (Salvataggio.salvaSuFile(nomeFile, ep)) {
-            JOptionPane.showMessageDialog(this, "Salvataggio completato con successo","Salvataggio",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/affermativeIcon.png"));
+            JOptionPane.showMessageDialog(this, "Salvataggio completato con successo", "Salvataggio", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/affermativeIcon.png"));
         } else {
-            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito","Attenzione",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/warning64.png"));
+            JOptionPane.showMessageDialog(this, "Salvataggio non riuscito", "Attenzione", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/warning64.png"));
         }
     }//GEN-LAST:event_salvaButtonActionPerformed
 
@@ -747,7 +746,6 @@ public class MainFrame extends javax.swing.JFrame {
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            //aggiornaModello();
         } catch (DataNonValidaException | InputMismatchException ex) {
             campoOrario1.setVisible(true);
             if (descrizioneText1.getText().equals("")) {
@@ -755,10 +753,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } catch (DescrizioneNonValidaException ex) {
             campoDescrizione1.setVisible(true);
-        } catch (PromemoriaPresenteException ex) {  
-            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario","Attenzione",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/icone/warning64.png")));
+        } catch (PromemoriaPresenteException ex) {
+            JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario", "Attenzione", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/icone/warning64.png")));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto","Promemoria scaduto",JOptionPane.INFORMATION_MESSAGE,setIcon("/icone/timeIcon.png"));
+            JOptionPane.showMessageDialog(this, "Impossibile modificare il promemoria: è scaduto", "Promemoria scaduto", JOptionPane.INFORMATION_MESSAGE, setIcon("/icone/timeIcon.png"));
             modificaFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
@@ -772,35 +770,38 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annullaButton1ActionPerformed
 
     private void rimuoviAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviAllButtonActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,setIcon("/icone/questionIcon.png")) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Vuoi cancellare tutti i promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, setIcon("/icone/questionIcon.png")) == JOptionPane.YES_OPTION) {
             ep.svuotaElenco();
             resultLabel.setText("Eliminati tutti i promemoria correttamente");
-            //aggiornaModello();
         }
     }//GEN-LAST:event_rimuoviAllButtonActionPerformed
 
     private void descrizioneTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descrizioneTextKeyPressed
         int keyPressed = evt.getKeyCode();
-        if (keyPressed == evt.VK_ENTER)
+        if (keyPressed == evt.VK_ENTER) {
             confermaButtonActionPerformed(null);
+        }
     }//GEN-LAST:event_descrizioneTextKeyPressed
 
     private void orarioTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orarioTextKeyPressed
         int keyPressed = evt.getKeyCode();
-        if (keyPressed == evt.VK_ENTER)
+        if (keyPressed == evt.VK_ENTER) {
             confermaButtonActionPerformed(null);
+        }
     }//GEN-LAST:event_orarioTextKeyPressed
 
     private void descrizioneText1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descrizioneText1KeyPressed
         int keyPressed = evt.getKeyCode();
-        if (keyPressed == evt.VK_ENTER)
+        if (keyPressed == evt.VK_ENTER) {
             confermaButton1ActionPerformed(null);
+        }
     }//GEN-LAST:event_descrizioneText1KeyPressed
 
     private void orarioText1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orarioText1KeyPressed
         int keyPressed = evt.getKeyCode();
-        if (keyPressed == evt.VK_ENTER)
+        if (keyPressed == evt.VK_ENTER) {
             confermaButtonActionPerformed(null);
+        }
     }//GEN-LAST:event_orarioText1KeyPressed
 
     private void orarioTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_orarioTextFocusGained
