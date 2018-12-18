@@ -610,15 +610,20 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_listaValueChanged
 
     private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
-        
-        if (Salvataggio.caricaDaFile(nomeFile, ep)) {
+        ElencoPromemoria epOld = ep;
+        if ((ep = Salvataggio.caricaDaFile(nomeFile))!=null) {
+            System.out.println("CARICA button: " +ep.size()); //CANCELLA
+            synchronized(epOld){
+                epOld.notifyAll();
+            }
             synchronized (ep) {
                 int elementiRimossi = ep.rimuoviPromemoriaScaduti();
                 if (elementiRimossi != 0) {
                     JOptionPane.showMessageDialog(this, "Numero di elementi scaduti: " + elementiRimossi);
                 }
-                ep.notifyAll();
+                ep.notifyAll();    
             }
+            
             JOptionPane.showMessageDialog(this, "File caricato con successo");
 
         } else {
