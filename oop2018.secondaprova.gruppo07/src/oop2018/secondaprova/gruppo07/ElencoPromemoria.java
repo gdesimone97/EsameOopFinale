@@ -105,7 +105,10 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
     public synchronized Promemoria ricercaPromemoria(LocalDateTime data){
         return elenco.get(data);
     }
-    
+    /**
+     * Metodo thread-safe per controllare se la struttura dati è vuota
+     * @return Restituisce true se la struttura dati è vuota, false altrimenti
+     */
     public synchronized boolean isEmpty(){
         return elenco.isEmpty();
     }
