@@ -2,6 +2,7 @@ package oop2018.secondaprova.gruppo07;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -20,15 +21,15 @@ public class MainFrame extends javax.swing.JFrame {
     private ElencoPromemoria ep;
     private DefaultListModel dm = new DefaultListModel();
     private boolean flag = false;
+    private final String nomeFile = "backup.dat";
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         ep = new ElencoPromemoria();
-
         initComponents();
-
+        aggiornaModello();
     }
 
     private void initInserisciFrame() {
@@ -41,6 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         meseSpinner.setValue(LocalDate.now().getMonthValue());
         annoSpinner.setValue(LocalDate.now().getYear());
         orarioText.setText(LocalTime.now().toString());
+        resultLabel.setText("");
     }
 
     private void aggiornaModello() {
@@ -75,11 +77,11 @@ public class MainFrame extends javax.swing.JFrame {
         inserisciButton = new javax.swing.JButton();
         cancellaButton = new javax.swing.JButton();
         modificaButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        resultArea = new javax.swing.JTextArea();
+        resultLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        salvaButton = new javax.swing.JMenuItem();
+        caricaButton = new javax.swing.JMenuItem();
 
         inserisciFrame.setPreferredSize(new java.awt.Dimension(400, 340));
         inserisciFrame.setResizable(false);
@@ -222,9 +224,9 @@ public class MainFrame extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lista.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaMouseClicked(evt);
+        lista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaValueChanged(evt);
             }
         });
         jScrollPane2.setViewportView(lista);
@@ -263,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(cancellaButton)
                     .addComponent(modificaButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -282,16 +284,28 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        resultArea.setEditable(false);
-        resultArea.setColumns(20);
-        resultArea.setRows(5);
-        jScrollPane1.setViewportView(resultArea);
+        resultLabel.setText("jLabel4");
 
         jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        salvaButton.setText("Salva");
+        salvaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvaButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(salvaButton);
+
+        caricaButton.setText("Carica");
+        caricaButton.setToolTipText("");
+        caricaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caricaButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(caricaButton);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -299,11 +313,13 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(resultLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -312,7 +328,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(resultLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -340,35 +356,33 @@ public class MainFrame extends javax.swing.JFrame {
     private void confermaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaButtonActionPerformed
         campoDescrizione.setVisible(false);
         campoOrario.setVisible(false);
-        int giorno, mese, anno, ora, minuti;
+        int giorno, mese, anno, ora = 0, minuti = 0;
         Scanner sc = new Scanner(orarioText.getText());
         sc.useDelimiter(":");
-        ora = sc.nextInt();
-        minuti = sc.nextInt();
+
         String descrizione = descrizioneText.getText();
         giorno = (int) giornoSpinner.getValue();
         mese = (int) meseSpinner.getValue();
         anno = (int) annoSpinner.getValue();
 
         try {
+            ora = sc.nextInt();
+            minuti = sc.nextInt();
             if (flag) {
                 ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
             }
             ep.inserisciPromemoria(descrizione, giorno, mese, anno, ora, minuti);
-            
-            
+
             if (flag) {
-                resultArea.append("Promemoria modificato correttamente" + '\n');
+                resultLabel.setText("Promemoria modificato correttamente");
             } else {
-                resultArea.append("Promemoria aggiunto correttamente" + '\n');
+                resultLabel.setText("Promemoria aggiunto correttamente");
             }
             inserisciFrame.setVisible(false);
             this.setEnabled(true);
             this.setVisible(true);
-            modificaButton.setEnabled(false);
-            cancellaButton.setEnabled(false);
             aggiornaModello();
-        } catch (DataNonValidaException ex) {
+        } catch (DataNonValidaException | InputMismatchException ex) {
             campoOrario.setVisible(true);
             if (descrizioneText.getText().equals("")) {
                 campoDescrizione.setVisible(true);
@@ -378,24 +392,19 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (PromemoriaPresenteException ex) {
             JOptionPane.showMessageDialog(this, "Già è presente un promemoria con questa data/orario");
         } catch (PromemoriaNonEsistenteException ex) {
+
         }
     }//GEN-LAST:event_confermaButtonActionPerformed
-
-    private void listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMouseClicked
-        if (!ep.isEmpty()) {
-            cancellaButton.setEnabled(true);
-            modificaButton.setEnabled(true);
-        }
-    }//GEN-LAST:event_listaMouseClicked
 
 
     private void cancellaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancellaButtonActionPerformed
         try {
-            ep.rimuoviPromemoria((Promemoria) dm.getElementAt(lista.getSelectedIndex()));
-            aggiornaModello();
-            resultArea.append("Promemoria rimosso correttamente" + '\n');
-            cancellaButton.setEnabled(false);
-            modificaButton.setEnabled(false);
+            Promemoria p = (Promemoria) dm.getElementAt(lista.getSelectedIndex());
+            if (JOptionPane.showConfirmDialog(this, p + "\nVuoi cancellare questo promemoria?", "Conferma cancellazione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                ep.rimuoviPromemoria(p);
+                aggiornaModello();
+                resultLabel.setText("Promemoria rimosso correttamente");
+            }
         } catch (PromemoriaNonEsistenteException ex) {
         }
     }//GEN-LAST:event_cancellaButtonActionPerformed
@@ -413,6 +422,36 @@ public class MainFrame extends javax.swing.JFrame {
         descrizioneText.setText(p.getDescrizione());
         flag = true;
     }//GEN-LAST:event_modificaButtonActionPerformed
+
+    private void listaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaValueChanged
+        if (!lista.isSelectionEmpty()) {
+            cancellaButton.setEnabled(true);
+            modificaButton.setEnabled(true);
+        } else {
+            cancellaButton.setEnabled(false);
+            modificaButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_listaValueChanged
+
+    private void caricaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaButtonActionPerformed
+        ElencoPromemoria p = Salvataggio.caricaDaFile(nomeFile);
+        if (p == null) {
+            JOptionPane.showMessageDialog(this, "Errore nel caricamento del file");
+        } else {
+            JOptionPane.showMessageDialog(this, "File caricato con successo");
+            ep = p;
+            aggiornaModello();
+        }
+    }//GEN-LAST:event_caricaButtonActionPerformed
+
+    private void salvaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaButtonActionPerformed
+       if(Salvataggio.salvaSuFile(nomeFile, ep)){
+           JOptionPane.showMessageDialog(this, "Salvataggio completato con successo");
+       }
+       else{
+           JOptionPane.showMessageDialog(this, "Salvataggio non riuscito");
+       }
+    }//GEN-LAST:event_salvaButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,6 +494,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel campoDescrizione;
     private javax.swing.JLabel campoOrario;
     private javax.swing.JButton cancellaButton;
+    private javax.swing.JMenuItem caricaButton;
     private javax.swing.JButton confermaButton;
     private javax.swing.JTextField descrizioneText;
     private javax.swing.JSpinner giornoSpinner;
@@ -466,16 +506,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> lista;
     private javax.swing.JSpinner meseSpinner;
     private javax.swing.JButton modificaButton;
     private javax.swing.JFormattedTextField orarioText;
-    private javax.swing.JTextArea resultArea;
+    private javax.swing.JLabel resultLabel;
+    private javax.swing.JMenuItem salvaButton;
     // End of variables declaration//GEN-END:variables
 }
