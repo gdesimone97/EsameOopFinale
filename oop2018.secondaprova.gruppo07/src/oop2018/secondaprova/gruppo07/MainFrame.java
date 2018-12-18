@@ -28,14 +28,14 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         ep = new ElencoPromemoria();
         initComponents();
-        //aggiornaModello();
+        aggiornaModello();
         resultLabel.setText("");
         new ControlloScadenza(ep, 15, this).start();
         new Thread(() -> {
             while (true) {
                 synchronized (ep) {
                     try {
-                        ep.wait();
+                        ep.wait();aggiornaModello();
                         aggiornaModello();
                     } catch (InterruptedException ex) {
 
