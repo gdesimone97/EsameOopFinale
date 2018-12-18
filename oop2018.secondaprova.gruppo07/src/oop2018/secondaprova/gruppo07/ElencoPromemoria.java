@@ -119,6 +119,11 @@ public class ElencoPromemoria implements Serializable, Iterable<Promemoria> {
         return elenco.isEmpty();
     }
 
+    /**
+     * stringa formattata per la stampa della struttura
+     *
+     * @return stringa di rappresentazione della struttura
+     */
     @Override
     public String toString() {
         String returnString = "";
