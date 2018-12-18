@@ -163,14 +163,29 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Giorno:");
 
         giornoSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        giornoSpinner.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                giornoSpinnerMouseWheelMoved(evt);
+            }
+        });
 
         jLabel2.setText("Mese:");
 
         meseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        meseSpinner.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                meseSpinnerMouseWheelMoved(evt);
+            }
+        });
 
         jLabel3.setText("Anno:");
 
         annoSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        annoSpinner.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                annoSpinnerMouseWheelMoved(evt);
+            }
+        });
 
         jLabel5.setText("Orario:");
 
@@ -179,11 +194,32 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        orarioText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                orarioTextFocusGained(evt);
+            }
+        });
+        orarioText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                orarioTextKeyPressed(evt);
+            }
+        });
 
         campoOrario.setForeground(new java.awt.Color(255, 0, 0));
         campoOrario.setText("*Data/ora non valida");
 
         jLabel7.setText("Descrizione:");
+
+        descrizioneText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                descrizioneTextFocusGained(evt);
+            }
+        });
+        descrizioneText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descrizioneTextKeyPressed(evt);
+            }
+        });
 
         campoDescrizione.setForeground(new java.awt.Color(255, 0, 0));
         campoDescrizione.setText("*Campo obbligatorio");
@@ -236,7 +272,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(confermaButton)
                         .addGap(18, 18, 18)
                         .addComponent(annullaButton)))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton)
                     .addComponent(annullaButton))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout inserisciFrameLayout = new javax.swing.GroupLayout(inserisciFrame.getContentPane());
@@ -285,14 +321,29 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("Giorno:");
 
         giornoSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        giornoSpinner1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                giornoSpinner1MouseWheelMoved(evt);
+            }
+        });
 
         jLabel6.setText("Mese:");
 
         meseSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        meseSpinner1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                meseSpinner1MouseWheelMoved(evt);
+            }
+        });
 
         jLabel8.setText("Anno:");
 
         annoSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        annoSpinner1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                annoSpinner1MouseWheelMoved(evt);
+            }
+        });
 
         jLabel9.setText("Orario:");
 
@@ -301,11 +352,32 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        orarioText1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                orarioText1FocusGained(evt);
+            }
+        });
+        orarioText1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                orarioText1KeyPressed(evt);
+            }
+        });
 
         campoOrario1.setForeground(new java.awt.Color(255, 0, 0));
         campoOrario1.setText("*Data/ora non valida");
 
         jLabel10.setText("Descrizione:");
+
+        descrizioneText1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                descrizioneText1FocusGained(evt);
+            }
+        });
+        descrizioneText1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descrizioneText1KeyPressed(evt);
+            }
+        });
 
         campoDescrizione1.setForeground(new java.awt.Color(255, 0, 0));
         campoDescrizione1.setText("*Campo obbligatorio");
@@ -358,7 +430,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(confermaButton1)
                         .addGap(18, 18, 18)
                         .addComponent(annullaButton1)))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +459,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confermaButton1)
                     .addComponent(annullaButton1))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout modificaFrameLayout = new javax.swing.GroupLayout(modificaFrame.getContentPane());
@@ -701,6 +773,90 @@ public class MainFrame extends javax.swing.JFrame {
             //aggiornaModello();
         }
     }//GEN-LAST:event_rimuoviAllButtonActionPerformed
+
+    private void descrizioneTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descrizioneTextKeyPressed
+        int keyPressed = evt.getKeyCode();
+        if(keyPressed == evt.VK_ENTER)
+            confermaButtonActionPerformed(null);
+    }//GEN-LAST:event_descrizioneTextKeyPressed
+
+    private void orarioTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orarioTextKeyPressed
+        int keyPressed = evt.getKeyCode();
+        if(keyPressed == evt.VK_ENTER)
+            confermaButtonActionPerformed(null);
+    }//GEN-LAST:event_orarioTextKeyPressed
+
+    private void descrizioneText1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descrizioneText1KeyPressed
+        int keyPressed = evt.getKeyCode();
+        if(keyPressed == evt.VK_ENTER)
+            confermaButton1ActionPerformed(null);
+    }//GEN-LAST:event_descrizioneText1KeyPressed
+
+    private void orarioText1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orarioText1KeyPressed
+        int keyPressed = evt.getKeyCode();
+        if(keyPressed == evt.VK_ENTER)
+            confermaButtonActionPerformed(null);
+    }//GEN-LAST:event_orarioText1KeyPressed
+
+    private void orarioTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_orarioTextFocusGained
+        orarioText.selectAll();
+    }//GEN-LAST:event_orarioTextFocusGained
+
+    private void descrizioneTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descrizioneTextFocusGained
+        descrizioneText.selectAll();
+    }//GEN-LAST:event_descrizioneTextFocusGained
+
+    private void orarioText1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_orarioText1FocusGained
+        orarioText1.selectAll();
+    }//GEN-LAST:event_orarioText1FocusGained
+
+    private void descrizioneText1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descrizioneText1FocusGained
+        descrizioneText1.selectAll();
+    }//GEN-LAST:event_descrizioneText1FocusGained
+
+    private void giornoSpinner1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_giornoSpinner1MouseWheelMoved
+        int spinValue = evt.getWheelRotation();
+        if (spinValue < 0) {
+            giornoSpinner1.setValue(((Integer) giornoSpinner1.getValue()) % 31 + 1);
+        } else if (spinValue > 0) {
+            giornoSpinner1.setValue(((Integer) giornoSpinner1.getValue() - 1 + 30) % 31 + 1);
+        }
+    }//GEN-LAST:event_giornoSpinner1MouseWheelMoved
+
+    private void meseSpinner1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_meseSpinner1MouseWheelMoved
+        int spinValue = evt.getWheelRotation();
+        if (spinValue < 0) {
+            meseSpinner1.setValue(((Integer) meseSpinner1.getValue()) % 12 + 1);
+        } else if (spinValue > 0) {
+            meseSpinner1.setValue(((Integer) meseSpinner1.getValue() - 1 + 11) % 12 + 1);
+        }
+    }//GEN-LAST:event_meseSpinner1MouseWheelMoved
+
+    private void annoSpinner1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_annoSpinner1MouseWheelMoved
+        annoSpinner1.setValue((Integer) annoSpinner1.getValue() - evt.getWheelRotation());
+    }//GEN-LAST:event_annoSpinner1MouseWheelMoved
+
+    private void giornoSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_giornoSpinnerMouseWheelMoved
+        int spinValue = evt.getWheelRotation();
+        if (spinValue < 0) {
+            giornoSpinner.setValue(((Integer) giornoSpinner.getValue()) % 31 + 1);
+        } else if (spinValue > 0) {
+            giornoSpinner.setValue(((Integer) giornoSpinner.getValue() - 1 + 30) % 31 + 1);
+        }
+    }//GEN-LAST:event_giornoSpinnerMouseWheelMoved
+
+    private void meseSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_meseSpinnerMouseWheelMoved
+        int spinValue = evt.getWheelRotation();
+        if (spinValue < 0) {
+            meseSpinner.setValue(((Integer) meseSpinner.getValue()) % 12 + 1);
+        } else if (spinValue > 0) {
+            meseSpinner.setValue(((Integer) meseSpinner.getValue() - 1 + 11) % 12 + 1);
+        }
+    }//GEN-LAST:event_meseSpinnerMouseWheelMoved
+
+    private void annoSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_annoSpinnerMouseWheelMoved
+        annoSpinner.setValue((Integer) annoSpinner.getValue() - evt.getWheelRotation());
+    }//GEN-LAST:event_annoSpinnerMouseWheelMoved
 
     /**
      * @param args the command line arguments
